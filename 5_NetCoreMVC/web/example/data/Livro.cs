@@ -1,4 +1,4 @@
-namespace web{
+namespace example {
     public class Livro
     {
         public Livro(string codigo, string nome, decimal preco)

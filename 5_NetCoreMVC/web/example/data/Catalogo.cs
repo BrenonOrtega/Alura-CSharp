@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace web {
+namespace example {
     public class Catalogo : ICatalogo
     {
         public List<Livro> GetLivros()

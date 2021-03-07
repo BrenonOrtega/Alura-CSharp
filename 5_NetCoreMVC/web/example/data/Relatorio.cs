@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace web {
+namespace example {
     public class Relatorio : IRelatorio {
         private readonly ICatalogo catalogo;
 

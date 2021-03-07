@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace web {
+namespace example {
     public interface ICatalogo{
         List<Livro> GetLivros();
     }
