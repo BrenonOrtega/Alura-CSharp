@@ -4,10 +4,21 @@ namespace _01_ByteBank {
 
     public class ContaCorrente {
 
+        private int _numeroAgencia; 
+        private double _saldo;
+
+        public static int Instantiations { get; private set; }
         public Cliente Titular { get; set; }
-        public int NumeroAgencia { get; set; }
         public int NumeroConta { get; set; }
-        public double Saldo { get; private set; }
+        public int NumeroAgencia { 
+            get=> _numeroAgencia; 
+            set=> _numeroAgencia = ValorValido(value) 
+                ? value : throw new Exception("Valor inválido"); 
+        }
+        public double Saldo { 
+            get => _saldo; 
+            private set => _saldo =  ValorValido(value) ? value : 0;
+        }
 
         public ContaCorrente(Cliente titular, int numeroAgencia, int numeroConta, double saldoInicial = 0) {
 
@@ -15,6 +26,7 @@ namespace _01_ByteBank {
             this.NumeroAgencia = numeroAgencia;
             this.NumeroConta = numeroConta;
             this.Saldo = saldoInicial;
+            Instantiations ++;
         }
 
         public void Depositar(double quantia) {
