@@ -5,14 +5,14 @@ namespace ByteBank
 {
     public class BonificacaoManager
     {
-        private double _totalBonificacao;
+        public double totalBonificacao {get; private set;}
 
-        public void Registrar(IEnumerable<> funcionarios){
+        public void Registrar(params Funcionario[] funcionarios){
             foreach (var funcionario in funcionarios) {
-                _totalBonificacao += funcionario.GetBonificacao();
+                totalBonificacao += funcionario.GetBonificacao();
             }    
         }
 
-        public double GetTotalBonificacoes() => _totalBonificacao;
+        public double GetTotalBonificacoes() => totalBonificacao;
     }
 }
