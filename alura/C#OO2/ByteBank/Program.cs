@@ -13,8 +13,8 @@ namespace ByteBank
 
             var Ferraz = new Diretor("4562315846");
 
-            Console.WriteLine(Ferraz.Renda);
-            Console.WriteLine($"Bonif Carlos= {carlos.GetBonificacao()} Ferraz bonif = {Ferraz.GetBonificacao()}");
+            log(Ferraz.Renda);
+            log($"Bonif Carlos= {carlos.GetBonificacao()} Ferraz bonif = {Ferraz.GetBonificacao()}");
 
             Funcionario Leozin = new Desenvolvedor("6sdaf541das321");
             Funcionario gustavo = new Auxiliar("fsd3124132");
@@ -22,8 +22,8 @@ namespace ByteBank
 
             var a = Leozin.GetBonificacao();
             gerBoni.Registrar(carlos, Ferraz, gustavo, Brenon);
-            Console.WriteLine($"Bonificação do Léo é R${a}");
-            Console.WriteLine($"Total {gerBoni.GetTotalBonificacoes()} + {a} = {gerBoni.GetTotalBonificacoes() + a}");
+            log($"Bonificação do Léo é R${a}");
+            log($"Total {gerBoni.GetTotalBonificacoes()} + {a} = {gerBoni.GetTotalBonificacoes() + a}");
 
 
         }
