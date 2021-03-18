@@ -1,8 +1,9 @@
 namespace ByteBank.data.Funcionarios{
     public class Desenvolvedor : Funcionario
     {
-        public Desenvolvedor(string cpf) : base (cpf, 5000) { }
+        private static double _salario = 5000;
+        public Desenvolvedor(string cpf) : base (cpf, _salario) { }
         public override double GetBonificacao() => Salario * 0.15;
-        public override void AumentarSalário() => Salario += 1.1;
+        public override void AumentarSalario() => Salario += 1.1;
     }
 }

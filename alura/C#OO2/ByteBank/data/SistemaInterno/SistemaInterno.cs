@@ -5,7 +5,7 @@ namespace ByteBank.data.SistemaInterno
     {
         public void Logar(IAutenticavel funcionario, string senha)
         {
-            bool isAutenticado = funcionario.Senha == senha;
+            bool isAutenticado = funcionario.Autenticar(senha);
             string msg = isAutenticado? "Usuário autenticado!" : "Senha Incorreta";
             Console.WriteLine(msg);
         }

@@ -17,15 +17,34 @@ namespace ByteBank
             Funcionario gustavo = new Auxiliar("fsd3124132");
             dynamic Brenon = new Diretor("454.599.928-00", "123");
 
-            gerBoni.Registrar(carlos, Ferraz, Leozin, gustavo, Brenon);
+            var Alan = new GerenteConta("45632248321", "togepi002");
+
+            gerBoni.Registrar(carlos, Ferraz, Leozin, gustavo, Brenon, Alan);
             log(gerBoni.GetTotalBonificacoes());
+
+            log("Brenon");
             sistema.Logar(Brenon, "abc");
+
+            log("Ferraz");
             sistema.Logar(Ferraz, "abc");
+
+            log("Brenon");
             sistema.Logar(Brenon, "123");
+
+            log("Alan");
+            sistema.Logar(Alan, "a");
+
+            log("Alan");
+            sistema.Logar(Alan, "togepi002");
+
             log("");
 
             dynamic outroBanco = new ParceiroComercial("Itaú", "123");
+
+            log(outroBanco.Nome);
             sistema.Logar(outroBanco, "123");
+
+            log(outroBanco.Nome);
             sistema.Logar(outroBanco, "abc");
 
         }

@@ -1,15 +1,14 @@
+using System.IO;
+
 namespace ByteBank.data.Funcionarios
 {
 
-    public class GerenteConta : Funcionario, IAutenticavel
+    public class GerenteConta : FuncionarioAutenticavel
     {
-        public string Senha { get ;  set; }
-        public GerenteConta(string cpf, string senha) : base(cpf, 4000) {
-            Senha = senha;
-        }
+        private static double _salario = 4000;
+        public GerenteConta(string cpf, string senha) : base(cpf, _salario, senha) {    }
 
         public override double GetBonificacao() => Salario * 0.2;
-        public override void AumentarSalário() => Salario *= 1.2;
-
+        public override void AumentarSalario() => Salario *= 1.2;
     }
 }

@@ -15,6 +15,6 @@ namespace ByteBank.data.Funcionarios
 
         public abstract double GetBonificacao();
 
-        public abstract void AumentarSalário();
+        public abstract void AumentarSalario();
     }
 }
