@@ -1,7 +1,6 @@
-using System.Collections.Generic;
-using ByteBank.Funcionarios;
+using ByteBank.data.Funcionarios;
 
-namespace ByteBank
+namespace ByteBank.data.SistemaInterno
 {
     public class BonificacaoManager
     {

@@ -1,4 +1,4 @@
-namespace ByteBank.Funcionarios
+namespace ByteBank.data.Funcionarios
 {
     public class Auxiliar : Funcionario
     {

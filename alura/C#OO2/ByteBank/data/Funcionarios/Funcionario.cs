@@ -1,5 +1,6 @@
 
-namespace ByteBank.Funcionarios{
+namespace ByteBank.data.Funcionarios
+{
     public abstract class Funcionario
     {
         public string Nome { get; set; }
@@ -15,8 +16,5 @@ namespace ByteBank.Funcionarios{
         public abstract double GetBonificacao();
 
         public abstract void AumentarSalário();
-      
     }
-
-
 }

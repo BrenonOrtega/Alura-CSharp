@@ -1,4 +1,4 @@
-namespace ByteBank.Funcionarios{
+namespace ByteBank.data.Funcionarios{
     public class Desenvolvedor : Funcionario
     {
         public Desenvolvedor(string cpf) : base (cpf, 5000) { }
