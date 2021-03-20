@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System;
+using System.IO;
 
 
 namespace Entity.models
@@ -9,8 +11,9 @@ namespace Entity.models
         public DbSet<Carro> Carros{ get; set; }
         public DbSet<Fabricante> Fabricantes {  get; set; }
 
+        string path = Path.GetDirectoryName(Directory.GetCurrentDirectory());
         protected override void OnConfiguring(DbContextOptionsBuilder options) {
-            options.UseSqlite(@"Data Source=C:\Users\brenon.ortega\Documents\NextSoft\projects\entity\Database\Automotive.db");
+            options.UseSqlite(@$"Data Source={path}\entity\Database\Automotive.db");
         }
     }
     
@@ -27,8 +30,12 @@ namespace Entity.models
     }
 
     public class Fabricante {
+        public Fabricante (string nome, int anoFundacao, string sede) {
+            Nome =   nome;
+            AnoFundacao = anoFundacao;
+            Sede = sede;
+        }
         public int FabricanteId { get; set; }
-
         public string Nome { get ; set ;}
         public int AnoFundacao { get; set; }
         public string Sede {get; set;}

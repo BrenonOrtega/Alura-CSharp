@@ -13,10 +13,10 @@ namespace entity
             using (var db = new CarrosDbContext())
             {
                  //Creating a car
-                Fabricante fabricante = new Fabricante {    AnoFundacao = 1912,
-                                                            Nome = "Ford",
-                                                            Sede = "Michigan"
-                                                        };
+                Fabricante fabricante = new Fabricante (nome:"Ford", 
+                                                        anoFundacao: 1912, 
+                                                        sede: "Michigan"
+                                                        );
 
                 Carro carro = new Carro {   Modelo = "Escort", 
                                             Motor = "Zetec 1.8",
@@ -34,7 +34,10 @@ namespace entity
                 }
                 else {
                     string NomeFabricante = "Ford";
-                    carro.Fabricante = db.Fabricantes.Where(F => F.Nome == NomeFabricante).FirstOrDefault();
+                    carro.Fabricante = db.Fabricantes.Where(
+                        F => F.Nome == NomeFabricante
+                    ).FirstOrDefault();
+
                     log(carro);
                     db.Add(carro);
                     db.SaveChanges();
