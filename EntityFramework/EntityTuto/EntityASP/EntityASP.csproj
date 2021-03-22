@@ -11,10 +11,14 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="microsoft.entityframeworkcore.sqlite" Version="5.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-       <ProjectReference Include="..\EntityAccessedData\EntityAccessedData.csproj"/>
+       <ProjectReference Include="..\EntityAccessedData\EntityAccessedData.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace EntityASP.Migrations
+namespace EntityAccessedData.Migrations
 {
     [DbContext(typeof(PeopleContext))]
-    [Migration("20210321000255_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20210321192544_AddValidations")]
+    partial class AddValidations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,19 +25,27 @@ namespace EntityASP.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("PersonId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("StreetAdress")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ZipCode")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasMaxLength(12)
+                        .HasColumnType("varchar(12)");
 
                     b.HasKey("Id");
 
@@ -53,6 +61,8 @@ namespace EntityASP.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("EmailAddress")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("PersonId")
@@ -72,12 +82,17 @@ namespace EntityASP.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Age")
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
