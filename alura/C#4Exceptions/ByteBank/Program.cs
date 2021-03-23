@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace _01_ByteBank 
 {
@@ -17,9 +18,24 @@ namespace _01_ByteBank
             Console.WriteLine(msg);
 
             Console.WriteLine(
-                "Saldo Brenon:" + ContaBrenon.Saldo.ToString() +
-                "\nSaldo ContaLan" + ContaLan.Saldo.ToString()
+                "Saldo Brenon:" + ContaBrenon.Saldo +
+                "\nSaldo ContaLan" + ContaLan.Saldo
             );
+
+            try {
+                MetodoErro();
+            } catch (DivideByZeroException e) {
+                Console.WriteLine("Não divide por zero, cacete!\n"
+                + e.StackTrace + "\n" + e.Message );
+            }
+        }
+
+        static void MetodoErro(){
+            dividir(5,0);
+        }
+
+        static double dividir(int dividendo, int divisor) {
+            return dividendo / divisor;
         }
     }
 }
