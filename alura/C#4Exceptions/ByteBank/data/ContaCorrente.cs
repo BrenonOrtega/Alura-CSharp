@@ -3,30 +3,22 @@ using System;
 namespace _01_ByteBank {
 
     public class ContaCorrente {
-
-        private int _numeroAgencia; 
-        private double _saldo;
-
         public static int Instantiations { get; private set; }
         public Cliente Titular { get; set; }
-        public int NumeroConta { get; set; }
-        public int NumeroAgencia { 
-            get=> _numeroAgencia; 
-            set=> _numeroAgencia = ValorValido(value) 
-                ? value : throw new Exception("Valor inválido"); 
-        }
-        public double Saldo { 
-            get => _saldo; 
-            private set => _saldo =  ValorValido(value) ? value : 0;
-        }
+        public int NumeroConta { get; }
+        public int NumeroAgencia { get; }
+        private double _saldo;
+        public double Saldo { get=> _saldo; private set => _saldo = ValorValido(value)? value : 0; }
 
-        public ContaCorrente(Cliente titular, int numeroAgencia, int numeroConta, double saldoInicial = 0) {
-
-            this.Titular = titular;
-            this.NumeroAgencia = numeroAgencia;
-            this.NumeroConta = numeroConta;
-            this.Saldo = saldoInicial;
+        public ContaCorrente(Cliente titular, int numeroAgencia, 
+                            int numeroConta, double saldoInicial = 0) 
+        {
+            Titular = titular;
+            Saldo = saldoInicial;
             Instantiations ++;
+
+            NumeroAgencia = ValorValido(numeroAgencia) ? numeroAgencia: throw new ArgumentException("Valor Inválido", nameof(numeroAgencia));
+            NumeroConta = ValorValido(numeroConta) ? numeroAgencia: throw new ArgumentException("Valor Inválido", nameof(numeroConta)); 
         }
 
         public void Depositar(double quantia) {

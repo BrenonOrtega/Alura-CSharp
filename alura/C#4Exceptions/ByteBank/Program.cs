@@ -22,11 +22,26 @@ namespace _01_ByteBank
                 "\nSaldo ContaLan" + ContaLan.Saldo
             );
 
-            try {
+            try 
+            {
                 MetodoErro();
-            } catch (DivideByZeroException e) {
-                Console.WriteLine("Não divide por zero, cacete!\n"
-                + e.StackTrace + "\n" + e.Message );
+            } 
+            catch (DivideByZeroException e) {
+                Console.WriteLine($"Não divide por zero, cacete!\n {e.TargetSite}");
+            }
+            catch(Exception e) {
+                Console.Write($@"{e.StackTrace}
+                {e.Message} 
+                {e.TargetSite}");
+            }
+
+            Log(ContaBrenon.Saldo);
+            ContaBrenon.Depositar(20);
+            Log($"Conta Brenon Saldo: {ContaBrenon.Saldo}");
+            
+            try { dynamic erro = new ContaCorrente(Brenon, 0,0);
+            } catch (ArgumentException e) {
+                Log(e.Message + "\n" + e.ParamName);
             }
         }
 
@@ -35,7 +50,10 @@ namespace _01_ByteBank
         }
 
         static double dividir(int dividendo, int divisor) {
-            return dividendo / divisor;
+            
+            return  dividendo / divisor;
         }
+
+        static void Log(object msg) => Console.WriteLine(msg);
     }
 }
