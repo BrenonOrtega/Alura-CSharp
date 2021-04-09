@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using _01_ByteBank.data.Exceptions;
+using _01_ByteBank.Tests;
 
 namespace _01_ByteBank 
 {
@@ -10,50 +12,48 @@ namespace _01_ByteBank
             Cliente Brenon = new Cliente("Brenon", cpf: 45459992800, profissao: "Programador Jr", telefone: 1128348021);
             Cliente Lan = new Cliente(nome:"Lan", cpf: 12345678900, "Chefe Pai", 1545459832);
 
-
             ContaCorrente ContaBrenon = new ContaCorrente(titular: Brenon, 1, 339660, -1000);
             ContaCorrente ContaLan = new ContaCorrente(titular: Lan, 1234, 4567, 1000);
 
-            string msg = $"{ContaCorrente.Instantiations}";
-            Console.WriteLine(msg);
+            Log(ContaCorrente.Instantiations);
 
-            Console.WriteLine(
-                "Saldo Brenon:" + ContaBrenon.Saldo +
-                "\nSaldo ContaLan" + ContaLan.Saldo
-            );
+            Log("Saldo Brenon:" + ContaBrenon.Saldo +
+                    "\nSaldo ContaLan:" + ContaLan.Saldo);
 
-            try 
-            {
+            try {
                 MetodoErro();
-            } 
-            catch (DivideByZeroException e) {
+            } catch (DivideByZeroException e) {
                 Console.WriteLine($"Não divide por zero, cacete!\n {e.TargetSite}");
-            }
-            catch(Exception e) {
-                Console.Write($@"{e.StackTrace}
-                {e.Message} 
-                {e.TargetSite}");
             }
 
             Log(ContaBrenon.Saldo);
             ContaBrenon.Depositar(20);
             Log($"Conta Brenon Saldo: {ContaBrenon.Saldo}");
             
-            try { dynamic erro = new ContaCorrente(Brenon, 0,0);
-            } catch (ArgumentException e) {
-                Log(e.Message + "\n" + e.ParamName);
+            try { 
+                var erro = new ContaCorrente(Brenon, 12, -10);
+            } catch (SaldoInvalidoException e) {
+                Log(e.Message );        
             }
-        }
 
-        static void MetodoErro(){
-            dividir(5,0);
+            Log(ContaBrenon.Saldo);
+            try{ContaBrenon.Sacar(-20);}
+            catch(QuantiaInvalidaException e){
+                Console.WriteLine(e);
+            }
+            Log(ContaBrenon.Saldo);
+            ContaBrenon.Depositar(100);
+            Log(ContaBrenon.Saldo);
+            ContaBrenon.Depositar(200);
+            Log(ContaBrenon.Saldo);
+            try { ContaBrenon.Depositar(-200); }
+            catch(QuantiaInvalidaException e){ Console.WriteLine(e); }
+            Log(ContaBrenon.Saldo);
         }
-
-        static double dividir(int dividendo, int divisor) {
-            
-            return  dividendo / divisor;
-        }
-
-        static void Log(object msg) => Console.WriteLine(msg);
+        
+        static void MetodoErro() => dividir(5,0);
+        static double dividir(int dividendo, int divisor) =>  dividendo / divisor;
+        static void Log(Object msg) => Console.WriteLine(msg);
+    
     }
 }

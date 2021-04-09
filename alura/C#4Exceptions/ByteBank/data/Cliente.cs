@@ -2,7 +2,7 @@ using System;
 
 namespace _01_ByteBank
 {
-  public class Cliente
+  public class Cliente 
   {
       public Cliente(string nome, long cpf, string profissao, int telefone=0){
         this.Nome = nome; 
@@ -15,7 +15,5 @@ namespace _01_ByteBank
       public long CPF { get; set; }
       public string Profissao { get; set; }
       public int Telefone { get; set; }
-
-
   }
 }
