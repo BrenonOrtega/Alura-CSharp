@@ -11,7 +11,7 @@ namespace _01_ByteBank {
         public int NumeroConta { get; }
         public int NumeroAgencia { get; }
         private double _saldo;
-        public double Saldo { get => _saldo; private set => _saldo = ValorValido(value)? value : 0; }
+        public double Saldo { get => _saldo; private set => _saldo = ValorValido(value)? value : throw new SaldoInvalidoException(); }
         public ContaCorrente(Cliente titular, int numeroAgencia, 
                             int numeroConta, double saldoInicial = 0) 
         {
@@ -21,11 +21,16 @@ namespace _01_ByteBank {
 
             NumeroAgencia = ValorValido(numeroAgencia) 
                 ? numeroAgencia 
-                : throw new IdentificacaoInvalidaException();
+                : throw new ArgumentException("Numero de Agência inválido", ( nameof(NumeroAgencia)) );
 
             NumeroConta = ValorValido(numeroConta) 
                 ? numeroAgencia
-                : throw new IdentificacaoInvalidaException(); 
+                : throw new ArgumentException("Numero de Conta inválido", (nameof(NumeroConta)) ); 
+        }
+
+        public override string ToString()
+        {
+            return $"ContaCorrenteObject-> Titular: {Titular.Nome} - Numero da Conta:{NumeroConta} - Numero da Agência: {NumeroAgencia}";
         }
 
         private bool ValorValido(double valor) => valor > 0;
@@ -33,20 +38,23 @@ namespace _01_ByteBank {
             if (Saldo >= valor && ValorValido(valor) ) {
                 return true;
             }
-            return false;
+            else throw new SaqueInvalidoException(Saldo, valor);
         }
-        public void Depositar(double quantia) { 
-            if ( ValorValido(quantia) ) Saldo += quantia ;
-            else throw new QuantiaInvalidaException(nameof(Depositar));
-        }
-        public void Sacar(double quantia) {
-            if ( ValorValido(quantia) ) this.Saldo -= quantia;
-            else throw new QuantiaInvalidaException(nameof(Depositar));
+        
+        public void Depositar(double quantia) 
+        { 
+            if (ValorValido(quantia)) Saldo += quantia ; 
         }
 
-        public void Transferir(double quantia, ISacavel contaDestino){
-            Sacar(quantia);
-            contaDestino.Depositar(quantia);    
+        public void Sacar(double valor) 
+        {
+            if ( OperacaoValida(valor) ) this.Saldo -= valor;  
+        }
+
+        public void Transferir(double valor, ISacavel contaDestino)
+        {
+            Sacar(valor);
+            contaDestino.Depositar(valor);    
         }
     }
 }

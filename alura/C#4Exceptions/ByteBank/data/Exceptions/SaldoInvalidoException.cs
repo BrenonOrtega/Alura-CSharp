@@ -5,8 +5,9 @@ namespace _01_ByteBank.data.Exceptions
 {
     public class SaldoInvalidoException : Exception
     {
-        private const String ErrorMessage = "Valor de Saldo Inválido.";
-        public SaldoInvalidoException(string message = ErrorMessage ) : base(message)
+        private const String SALDO_INVALIDO_MESSAGE = "Valor de atribuição de Saldo Inválido.";
+
+        public SaldoInvalidoException(string message = SALDO_INVALIDO_MESSAGE ) : base(message)
         {
         }
 
