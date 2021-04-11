@@ -14,7 +14,7 @@ namespace _01_ByteBank.data.Exceptions
         {
         }
 
-        public SaqueInvalidoException(string message=QUANTIA_INVALIDA_MESSAGE) : base(message)
+        private SaqueInvalidoException(string message=QUANTIA_INVALIDA_MESSAGE) : base(message)
         {
         }
 
@@ -25,6 +25,7 @@ namespace _01_ByteBank.data.Exceptions
             Saldo = saldo;
             ValorSaque = valorSaque;
         }
+        
         public SaqueInvalidoException(string message, Exception innerException) : base(message, innerException)
         {
         }
