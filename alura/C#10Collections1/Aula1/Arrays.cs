@@ -1,24 +1,17 @@
-﻿using System;
+using System;
 
-namespace C_10Collections1
-{
-    class Program
+namespace Aula1.Arrays
+{   
+    public static class  Arrays 
     {
-        static void Main(string[] args)
+        public static void InicializaArrayComValores() 
         {
-            Execute(OperacaoComArrays);
-        }
-
-        static void Execute(Action a){
-            a();
-        }
-
-        static void InicializaArrayComValores() {
             string primeiraAula = "Olá, está é a primeira aula.";
             string modelandoAula = "Modelando Arrays na aula!";
             string ListsAula = "Criando Lists na aula!";
 
-            string[] aulas = new string[]{
+            string[] aulas = new string[]
+            {
                 primeiraAula, modelandoAula, ListsAula
             };
 
@@ -26,7 +19,8 @@ namespace C_10Collections1
             PrintAll(aulas);
         }
 
-        static void CriaArrayVazioEAtribuiDepois() {
+        public static void CriaArrayVazioEAtribuiDepois() 
+        {
             string primeiraAula = "Olá, está é a primeira aula. inicializada depois";
             string modelandoAula = "Modelando Arrays na aula! inicializada depois";
             string ListsAula = "Criando Lists na aula! inicializada depois";
@@ -41,7 +35,8 @@ namespace C_10Collections1
             PrintAll(aulas);
         }
  
-        static void OperacaoComArrays(){
+        public static void OperacaoComArrays()
+        {
             string primeiraAula = "Olá, está é a primeira aula. ";
             string modelandoAula = "Modelando Arrays na aula! ";
             string ListsAula = "Criando Lists na aula!";
@@ -110,10 +105,13 @@ namespace C_10Collections1
             Reverse();
             Resize();
             Sort();
-        }
 
-        static void PrintAll(object[] a) {
-            for(int i=0; i < a.Length; i++){
+            
+        }
+        public static void PrintAll(object[] a) 
+        {
+            for(int i=0; i < a.Length; i++)
+            {
                 System.Console.WriteLine(a[i]);
             }
         }
