@@ -97,16 +97,10 @@ namespace Aula1.Arrays
                 PrintAll(aulas);
             }
 
-            void copy(){
-                return;
-            }
-
             IndexOf();
             Reverse();
             Resize();
-            Sort();
-
-            
+            Sort();     
         }
         public static void PrintAll(object[] a) 
         {
