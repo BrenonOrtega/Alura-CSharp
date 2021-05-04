@@ -18,9 +18,29 @@ namespace Aula4Dicts
             collections.Matricular(aluno2);
             collections.Matricular(aluno3);
 
+            System.Console.WriteLine("Alunos Matriculados");
+            foreach (var aluno in collections.Alunos)
+            {    
+                System.Console.WriteLine(aluno);
+                System.Console.WriteLine();
+            }
+
             Aluno alunoTeste = new("Brenon", "Orte", 12);
             System.Console.WriteLine("Aluno Matriculado?" + collections.IsMatriculado(alunoTeste));
             System.Console.WriteLine(collections.BuscaMatricula(alunoTeste.Matricula));
+            System.Console.WriteLine();
+
+            Aluno outroBrenon = new("Brenon", "Costa", 12);
+            collections.AlteraAluno(outroBrenon);
+            System.Console.WriteLine(collections.BuscaMatricula(12));
+            System.Console.WriteLine();
+            
+            System.Console.WriteLine("verificando o hashSet");
+            foreach (var aluno in collections.Alunos)
+            {
+                System.Console.WriteLine(aluno);
+                System.Console.WriteLine();
+            }
 
         }
     }

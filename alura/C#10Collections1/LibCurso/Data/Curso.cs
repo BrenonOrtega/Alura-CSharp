@@ -45,6 +45,7 @@ namespace LibCurso.Data
         public int DuracaoTotal { get => _aulas.Sum(aula => aula.Duracao); }
         public void AddAula(Aula aula) => _aulas.Add(aula);
         public void Matricular(Aluno aluno) {
+            
             _alunos.Add(aluno);
             _dictAlunos.Add(aluno.Matricula, aluno);
         }
@@ -62,6 +63,11 @@ namespace LibCurso.Data
 
             _dictAlunos.TryGetValue(numeroMatricula, out Aluno aluno);
             return aluno;
+        } 
+
+        public void AlteraAluno(Aluno aluno){
+            _alunos.Add(aluno);
+            _dictAlunos[aluno.Matricula] = aluno;    
         }
         
     #endregion
