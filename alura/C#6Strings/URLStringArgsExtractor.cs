@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -8,8 +9,9 @@ namespace CSharp6Strings
     {
         public string Url { get; set; }
         
-        public string Param { get; set; }
-        public string Arg  { get; set; }
+        private const string _separator = "&";
+        private readonly string _argumentos;
+        public HashSet<string> Args { get; private set; } = new HashSet<string>();
         public static void Run() {
             //Cada caractér possuí um indíce (0 based).
             //p a g i n a ? a r g u  m  e  n  t  o  s
@@ -26,19 +28,30 @@ namespace CSharp6Strings
             Url = String.IsNullOrEmpty(url).Equals(false)
                 ? url : throw new ArgumentNullException(nameof(url)) ;
             
-            var index = url.LastIndexOf("&");
-            var finalIndex = url.LastIndexOf("=");
-            var Param_Value = url.Substring(index + 1);
-            Param = url.Substring(url.IndexOf(Param_Value), finalIndex - index);
-            Arg = GetValor(Param_Value);
+            int indexQuestionMark = url.IndexOf("?");
 
-            System.Console.WriteLine(Param);
-            System.Console.WriteLine(Arg);
+            _argumentos = url.Substring(indexQuestionMark + 1);
+            Args.Add(GetValue("moedaOrigem"));
+            Args.Add(GetValue("MOEDADESTINO"));
+            Args.Add(GetValue("Valor"));
+ 
+            System.Console.WriteLine(_argumentos);
+            foreach (var item in Args)
+                System.Console.WriteLine(item);
         }
 
-        private string GetValor(string urlArgs) { 
-            var arg = urlArgs.Substring(urlArgs.IndexOf("=") + 1);
-            return arg;
+        private string GetValue(string paramName) { 
+            string parameter = paramName + "=";
+            int parameterIndex = _argumentos.ToUpper().IndexOf(parameter.ToUpper());
+
+            string value = _argumentos.Substring(parameterIndex + parameter.Length);
+            int indexSeparator = value.IndexOf(_separator);
+
+            if(indexSeparator > 0) {
+                value = value.Remove(indexSeparator);
+            }
+
+            return value;
         }
 
        
