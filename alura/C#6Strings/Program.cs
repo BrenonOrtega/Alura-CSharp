@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 namespace CSharp6Strings
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
@@ -18,8 +18,9 @@ namespace CSharp6Strings
             String url = "?moedaOrigem=real&moedaDestino=dolar&valor=1500";
             URLStringArgsExtractor extractor = new (url);
 
-            
+            RegexClass.Aula();
         }
 
     }
 }
+ 

@@ -1,10 +1,11 @@
+using System.Runtime.ConstrainedExecution;
 using System.Text.RegularExpressions;
 
 namespace CSharp6Strings
 {
-    public class RegexClass
+    class RegexClass
     {
-        void aula()
+        internal static void Aula()
         {
             var phrase = "Hello, my name is Brenon, you can call me at 945934443";
             var phrase2 = "Hello, my name is Brenon, you can call me at +551194593-4443";
@@ -14,6 +15,13 @@ namespace CSharp6Strings
             var match = Regex.Match(phrase2, pattern).Value;
             System.Console.WriteLine(test);
             System.Console.WriteLine(match);
+
+            var urlPattern = @"(?<protocol>https*://)?www.google.com";
+            var url = "http://www.google.com";
+
+            var test1 = Regex.Match(url, urlPattern);
+            System.Console.WriteLine(test1.Groups["protocol"]); 
+            System.Console.WriteLine(test1.Value);
         }
     }
 }
