@@ -26,7 +26,6 @@ namespace EntityASP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PeopleContext>();
-
             services.AddRazorPages();
         }
 
@@ -46,14 +45,12 @@ namespace EntityASP
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }

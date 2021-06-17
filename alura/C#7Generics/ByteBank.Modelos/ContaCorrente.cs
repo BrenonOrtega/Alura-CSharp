@@ -26,19 +26,8 @@ namespace ByteBank.Modelos
         private double _saldo = 100;
         public double Saldo
         {
-            get
-            {
-                return _saldo;
-            }
-            set
-            {
-                if (value < 0)
-                {
-                    return;
-                }
-
-                _saldo = value;
-            }
+            get =>_saldo;    
+            set { if(value > 0) _saldo = value; }
         }
 
         /// <summary>
@@ -110,6 +99,11 @@ namespace ByteBank.Modelos
             }
 
             contaDestino.Depositar(valor);
+        }
+
+        public override string ToString()
+        {
+            return $"Agencia:{Agencia}-Numero:{Numero}-Saldo:{Saldo}";
         }
     }
 

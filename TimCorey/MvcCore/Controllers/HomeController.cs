@@ -23,6 +23,8 @@ namespace MvcCore.Controllers
             return View();
         }
 
+        public IActionResult Brenon() => View();
+
         public IActionResult Privacy()
         {
             return View();

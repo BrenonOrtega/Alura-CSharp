@@ -24,6 +24,5 @@ namespace EntityAccessedData.Models
         [Column(TypeName = "varchar(12)")]
         public string ZipCode { get; set; }
 
-        
     }
 }
