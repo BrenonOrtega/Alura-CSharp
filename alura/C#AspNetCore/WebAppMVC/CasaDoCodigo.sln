@@ -107,6 +107,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aula1", "Aula1", "{BC06BC52
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CasaDoCodigo", "Aulas\Aula1\CasaDoCodigo\CasaDoCodigo.csproj", "{178B613C-AD1F-4248-9312-E7D23D825D3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ownerApp", "OwnerApp\ownerApp.csproj", "{C3E631BB-1E5D-4403-8209-E015E09867CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{178B613C-AD1F-4248-9312-E7D23D825D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{178B613C-AD1F-4248-9312-E7D23D825D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{178B613C-AD1F-4248-9312-E7D23D825D3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3E631BB-1E5D-4403-8209-E015E09867CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3E631BB-1E5D-4403-8209-E015E09867CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3E631BB-1E5D-4403-8209-E015E09867CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3E631BB-1E5D-4403-8209-E015E09867CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

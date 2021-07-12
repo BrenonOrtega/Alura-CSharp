@@ -16,10 +16,6 @@ namespace CasaDoCodigo.Models
 
     public class Produto : BaseModel
     {
-        public Produto()
-        {
-
-        }
 
         [Required]
         public string Codigo { get; private set; }
