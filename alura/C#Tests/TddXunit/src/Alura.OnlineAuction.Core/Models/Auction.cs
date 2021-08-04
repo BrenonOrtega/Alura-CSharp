@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 
 namespace Alura.OnlineAuction.Core.Models
 {
@@ -11,21 +10,23 @@ namespace Alura.OnlineAuction.Core.Models
 
         private bool _isOpen;
 
+        private readonly IAuctionType _auctionType;
+
         private Interested _lastBidInterested;
+       
+        public string Item { get; }
 
         public IEnumerable<Bid> Bids => _bids.ToImmutableArray();
 
         public Bid Winner { get; private set; }
 
-        public string Item { get; }
-
-        public Auction(string item)
+        public Auction(string item, IAuctionType auctionType)
         {
             Item = item;
+            _auctionType = auctionType;
             _bids = new HashSet<Bid>();
         }
 
-        ///<exception cref="InvalidOperationException">Throws when trading floor is not open yet.</exception>
         public void ReceiveBid(Interested client, decimal value)
         {
             if (AcceptedBid(client))
@@ -38,22 +39,18 @@ namespace Alura.OnlineAuction.Core.Models
         public void OpenTradingFloor() =>
             _isOpen = true;
 
+        ///<exception cref="InvalidOperationException"> Throws when an attempt to close the auction happen before opening it</exception>
         public void CloseTradingFloor()
         {
-            if(!_isOpen)
+            if (!_isOpen)
                 throw new InvalidOperationException("Cannot close an auction trading floor before it's opening");
 
-            Winner = _bids
-                .DefaultIfEmpty(new Bid(null, 0))
-                .OrderBy(x => x.Value)
-                .LastOrDefault();
+            Winner = _auctionType.Audit(this);
 
             _isOpen = false;
         }
 
-        private bool AcceptedBid(Interested client)
-        {
-            return _isOpen && _lastBidInterested != client;
-        }
+        private bool AcceptedBid(Interested client) =>
+            _isOpen && _lastBidInterested != client;
     }
 }
