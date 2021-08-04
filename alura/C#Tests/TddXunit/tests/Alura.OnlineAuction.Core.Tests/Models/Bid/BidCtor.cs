@@ -15,7 +15,7 @@ namespace Alura.OnlineAuction.Core.Tests.Models
             var auction = new Auction("monalisa", new GreatestValue());
             var testClient = new Interested("test client", auction);
 
-            Assert.Throws(typeof(ArgumentException), () => new Bid(testClient, value));
+            Assert.Throws<ArgumentException>(() => new Bid(testClient, value));
         }
     }
 }
