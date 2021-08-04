@@ -2,6 +2,7 @@ using Xunit;
 using System;
 using System.Collections.Generic;
 using Alura.OnlineAuction.Core.Models;
+using Alura.OnlineAuction.Core.Models.AuctionTypes;
 
 namespace Alura.OnlineAuction.Core.Tests.Models.AuctionTests
 {
@@ -10,7 +11,7 @@ namespace Alura.OnlineAuction.Core.Tests.Models.AuctionTests
         [Fact]
         public void NoBidAuction_WinnerValue_ShouldBeZero()
         {
-            var auction = new Auction("Van Gogh");
+            var auction = new Auction("Van Gogh", new GreatestValue());
 
             auction.OpenTradingFloor();
             auction.CloseTradingFloor();
@@ -25,7 +26,8 @@ namespace Alura.OnlineAuction.Core.Tests.Models.AuctionTests
         [MemberData(nameof(GetValues))]
         public void AuctionWinner_ShouldReturnHighestBid(decimal expected, decimal[] offers)
         {
-            var auction = new Auction("Monalisa");
+            var auctionType = new GreatestValue();
+            var auction = new Auction("Monalisa", auctionType);
 
             auction.OpenTradingFloor();
 
@@ -40,10 +42,11 @@ namespace Alura.OnlineAuction.Core.Tests.Models.AuctionTests
         }
 
         [Theory]
-        [InlineData(1250, new double[] { 800, 400, 1500, 1350 })]
-        public void WinnerBid_ShouldBeTheClosestTo_AuctionTargetValue(decimal targetValue, decimal[] offers)
+        [InlineData(1250, 1350, new double[] { 800, 400, 1500, 1350 })]
+        public void WinnerBid_ShouldBeTheClosestTo_AuctionTargetValue(decimal targetValue, decimal expected, decimal[] offers)
         {
-            var auction = new Auction("monalisa", targetValue);
+            var auctionType = new ClosestToTargetValue(targetValue); 
+            var auction = new Auction("monalisa", auctionType);
 
             auction.OpenTradingFloor();
 
@@ -52,14 +55,16 @@ namespace Alura.OnlineAuction.Core.Tests.Models.AuctionTests
             
             auction.CloseTradingFloor();
 
-            var expected = auction.TargetValue;
             var actual = auction.Winner.Value;
+
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
         public void ClosingTradingFloor_BeforeOpening_ShouldThrow_InvalidOperationException()
         {
-            var auction = new Auction("monalisa");
+            var auctionType = new GreatestValue();
+            var auction = new Auction("monalisa", auctionType);
 
             var expectedMessage = "Cannot close an auction trading floor before it's opening";
 

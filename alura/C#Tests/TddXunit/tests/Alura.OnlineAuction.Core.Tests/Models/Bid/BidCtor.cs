@@ -1,5 +1,6 @@
 using System;
 using Alura.OnlineAuction.Core.Models;
+using Alura.OnlineAuction.Core.Models.AuctionTypes;
 using Xunit;
 
 namespace Alura.OnlineAuction.Core.Tests.Models
@@ -11,7 +12,7 @@ namespace Alura.OnlineAuction.Core.Tests.Models
         [InlineData(-50)]
         public void Throws_ArgumentException_When_BidValue_IsNotPositive(decimal value)
         {
-            var auction = new Auction("monalisa");
+            var auction = new Auction("monalisa", new GreatestValue());
             var testClient = new Interested("test client", auction);
 
             Assert.Throws(typeof(ArgumentException), () => new Bid(testClient, value));

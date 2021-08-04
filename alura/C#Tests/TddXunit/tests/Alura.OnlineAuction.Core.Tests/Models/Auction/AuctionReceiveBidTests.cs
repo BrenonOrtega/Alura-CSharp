@@ -2,6 +2,7 @@ using Xunit;
 using Alura.OnlineAuction.Core.Models;
 using System.Linq;
 using System.Collections.Generic;
+using Alura.OnlineAuction.Core.Models.AuctionTypes;
 
 namespace Alura.OnlineAuction.Core.Tests.Models.AuctionTests
 {
@@ -11,7 +12,7 @@ namespace Alura.OnlineAuction.Core.Tests.Models.AuctionTests
         [MemberData(nameof(GetValues))]
         public void ShouldNotAcceptBids_When_TradingFloorIsClosed(decimal[] offers)
         {
-            var auction = new Auction("Abaporu");
+            var auction = new Auction("Abaporu", new GreatestValue());
 
             auction.OpenTradingFloor();
 
@@ -42,7 +43,7 @@ namespace Alura.OnlineAuction.Core.Tests.Models.AuctionTests
         [Fact]
         public void AuctionShouldNotAccept_ConsecutiveBids_FromSame_Interested()
         {
-            var auction = new Auction("Mozart Partitures");
+            var auction = new Auction("Mozart Partitures", new GreatestValue());
             var customer = new Interested("test interested customer", auction);
 
             auction.OpenTradingFloor();
