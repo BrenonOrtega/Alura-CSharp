@@ -1,81 +1,68 @@
-Referências de Aula - TDD e Xunit com C# - Alura
+## Referências de Aula - TDD e Xunit com C# - Alura
 
-Testes e Xunit:
-Definição de Teste
-http://softwaretestingfundamentals.com/definition-of-test/
+### [Testes e Xunit:]
 
-Padrão AAA (Arrange, Act, Assert)
-http://wiki.c2.com/?ArrangeActAssert
+* [Definição de Teste](http://softwaretestingfundamentals.com/definition-of-test/)
 
-Padrão Given/When/Then
-https://martinfowler.com/bliki/GivenWhenThen.html
+* [Padrão AAA (Arrange, Act, Assert)](http://wiki.c2.com/?ArrangeActAssert)
 
-xUnit
-https://xunit.github.io/
+* [Padrão Given/When/Then](https://martinfowler.com/bliki/GivenWhenThen.html)
 
-MSTests
-https://github.com/Microsoft/testfx-docs
+* [xUnit](https://xunit.github.io/)
 
-NUnit
-https://nunit.org/
+* [MSTests](https://github.com/Microsoft/testfx-docs)
 
-Comparativo entre os frameworks de Teste
-https://xunit.github.io/docs/comparisons
+* [NUnit](https://nunit.org/)
 
-Porque xUnit?
-https://www.martin-brennan.com/why-xunit/
+* [Comparativo entre os frameworks de Test]
+(https://xunit.github.io/docs/comparisons)
 
-Microsoft está usando o xUnit
-https://dev.to/hatsrumandcode/net-core-2-why-xunit-and-not-nunit-or-mstest--aei
+* [Porque xUnit?](https://www.martin-brennan.com/why-xunit/)
 
-Conceitos de Testes e aplicação:
+* [Microsoft está usando o xUnit](https://dev.to/hatsrumandcode/net-core-2-why-xunit-and-not-nunit-or-mstest--aei)
 
-Referências mencionadas nessa aula
-Classes de Equivalência - técnica para identificação de testes relevantes:
-https://en.wikipedia.org/wiki/Equivalence_partitioning
+### Conceitos de Testes e aplicação:
 
-Análise de Fronteira - outra técnica:
-https://en.wikipedia.org/wiki/Boundary-value_analysis
+* [Classes de Equivalência - técnica para identificação de testes relevantes](https://en.wikipedia.org/wiki/Equivalence_partitioning)
 
-Definição de Product Owner
-https://www.scrum.org/resources/what-is-a-product-owner
+* [Análise de Fronteira - outra técnica:](https://en.wikipedia.org/wiki/Boundary-value_analysis)
 
-Diferença entre [Fact] e [Theory]
-https://xunit.github.io/docs/getting-started/netfx/visual-studio#write-first-theory
+* [Definição de Product Owner](https://www.scrum.org/resources/what-is-a-product-owner)
 
-Nomenclatura de testes
-https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices#best-practices
+* [Diferença entre [Fact] e [Theory]](https://xunit.github.io/docs/getting-started/netfx/visual-studio#write-first-theory)
 
-https://docs.microsoft.com/pt-br/dotnet/standard/modern-web-apps-azure-architecture/test-asp-net-core-mvc-apps#test-naming
+* [Nomenclatura de testes:]
+ - [Docs Microsoft](https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices#best-practices)
 
-Regressão:
+ - [Docs Asp Net Core](https://docs.microsoft.com/pt-br/dotnet/standard/modern-web-apps-azure-architecture/test-asp-net-core-mvc-apps#test-naming)
 
-Testes de regressão
-http://softwaretestingfundamentals.com/regression-testing/
+### Regressão:
 
-Intro a Métodos Ágeis na Alura
-https://cursos.alura.com.br/course/introducao-aos-metodos-ageis
+* [Testes de regressão](http://softwaretestingfundamentals.com/regression-testing/)
 
-Livro TDD By Example, de Kent Beck
-https://www.amazon.com.br/Test-Driven-Development-Kent-Beck/dp/0321146530/
+* [Intro a Métodos Ágeis na Alura](https://cursos.alura.com.br/course/introducao-aos-metodos-ageis)
 
-Livro sobre TDD na Casa do Código
-https://www.casadocodigo.com.br/products/livro-tdd-dotnet
+* [Livro TDD By Example, de Kent Beck](https://www.amazon.com.br/Test-Driven-Development-Kent-Beck/dp/0321146530/)
 
-Testes de métodos privados
-https://docs.microsoft.com/pt-br/dotnet/core/testing/unit-testing-best-practices#validate-private-methods-by-unit-testing-public-methods
+* [Livro sobre TDD na Casa do Código](https://www.casadocodigo.com.br/products/livro-tdd-dotnet)
 
-Testando Exceções: 
+* [Testes de métodos privados](https://docs.microsoft.com/pt-br/dotnet/core/testing/unit-testing-best-practices#validate-private-methods-by-unit-testing-public-methods)
 
-Referências usadas na aula
-Diferenças entre os frameworks ao testar exceções
+### Testando Exceções: 
 
-https://xunit.github.io/docs/comparisons
+* [Diferenças entre os frameworks ao testar exceções](https://xunit.github.io/docs/comparisons)
 
-Visual Studio tem uma ferramenta de cobertura de código, mas infelizmente apenas nas suas versões pagas.
+* Visual Studio tem uma ferramenta de cobertura de código, mas infelizmente apenas nas suas versões pagas.
 
-https://docs.microsoft.com/en-us/visualstudio/test/using-code-coverage-to-determine-how-much-code-is-being-tested
+  - https://docs.microsoft.com/en-us/visualstudio/test/using-code-coverage-to-determine-how-much-code-is-being-tested
 
-Esse artigo do Martin Fowler debate o real propósito da cobertura de código, que em sua opinião (na minha também!) deveria ser para encontrar partes não testadas do seu sistema ao invés de ser uma métrica utilizada em contratos e objetivos do time.
+* Esse artigo do Martin Fowler debate o real propósito da cobertura de código, que em sua opinião (na minha também!) deveria ser para encontrar partes não testadas do seu sistema ao invés de ser uma métrica utilizada em contratos e objetivos do time.
 
-https://www.martinfowler.com/bliki/TestCoverage.html
+  - https://www.martinfowler.com/bliki/TestCoverage.html
+
+
+### Testes e Design de Código: 
+
+* [Design OO, Interfaces e Implementação](https://en.wikipedia.org/wiki/Object-oriented_design)
+
+* [Princípios de Design: SOLID](https://en.wikipedia.org/wiki/SOLID)
