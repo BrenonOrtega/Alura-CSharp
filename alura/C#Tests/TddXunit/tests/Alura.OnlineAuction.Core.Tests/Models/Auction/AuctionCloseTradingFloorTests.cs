@@ -42,22 +42,29 @@ namespace Alura.OnlineAuction.Core.Tests.Models.AuctionTests
         }
 
         [Theory]
-        [InlineData(1250, 1350, new double[] { 800, 400, 1500, 1350 })]
+        [MemberData(nameof(GetClosestTargetValues))]
         public void WinnerBid_ShouldBeTheClosestTo_AuctionTargetValue(decimal targetValue, decimal expected, decimal[] offers)
         {
-            var auctionType = new ClosestToTargetValue(targetValue); 
+            var auctionType = new ClosestToTargetValue(targetValue);
             var auction = new Auction("monalisa", auctionType);
 
             auction.OpenTradingFloor();
 
-            foreach(var offer in offers)
+            foreach (var offer in offers)
                 auction.ReceiveBid(new Interested($"interested offering {offer}", auction), offer);
-            
+
             auction.CloseTradingFloor();
 
             var actual = auction.Winner.Value;
 
             Assert.Equal(expected, actual);
+        }
+
+        public static IEnumerable<object[]> GetClosestTargetValues()
+        {
+            yield return new object[] { 1250, 1350, new decimal[] { 800, 400, 1500, 1350 } };
+            yield return new object[] { 150, 400, new decimal[] { 115, 400, 1500, 1350 } };
+            yield return new object[] { 5000, 5001, new decimal[] { 4999, 4995, 5001, 5002 } };
         }
 
         [Fact]
@@ -68,7 +75,7 @@ namespace Alura.OnlineAuction.Core.Tests.Models.AuctionTests
 
             var expectedMessage = "Cannot close an auction trading floor before it's opening";
 
-            var exception = Assert.Throws(typeof(InvalidOperationException), () => auction.CloseTradingFloor());
+            var exception = Assert.Throws<InvalidOperationException>(() => auction.CloseTradingFloor());
             Assert.Equal(expectedMessage, exception.Message);
         }
 
