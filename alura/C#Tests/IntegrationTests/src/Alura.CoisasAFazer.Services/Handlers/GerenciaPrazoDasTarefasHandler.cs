@@ -6,29 +6,37 @@ using Alura.CoisasAFazer.Infrastructure;
 
 namespace Alura.CoisasAFazer.Services.Handlers
 {
-    public class GerenciaPrazoDasTarefasHandler
+    public class GerenciaPrazoDasTarefasHandler : IHandler
     {
         IRepositorioTarefas _repo;
 
-        public GerenciaPrazoDasTarefasHandler()
+        public GerenciaPrazoDasTarefasHandler(IRepositorioTarefas repo)
         {
-            _repo = new RepositorioTarefa();
+            _repo = repo;
         }
 
-        public void Execute(GerenciaPrazoDasTarefas comando)
+        public ICommandResult Execute(GerenciaPrazoDasTarefas comando)
         {
             var agora = comando.DataHoraAtual;
 
-            //pegar todas as tarefas não concluídas que passaram do prazo
-            var tarefas = _repo
-                .ObtemTarefas(t => t.Prazo <= agora && t.Status != StatusTarefa.Concluida)
-                .ToList();
+            try {
+                //pegar todas as tarefas não concluídas que passaram do prazo
+                var tarefas = _repo
+                    .ObtemTarefas(t => t.Prazo <= agora && t.Status != StatusTarefa.Concluida)
+                    .ToList();
 
-            //atualizá-las com status Atrasada
-            tarefas.ForEach(t => t.Status = StatusTarefa.EmAtraso);
+                //atualizá-las com status Atrasada
+                tarefas.ForEach(t => t.Status = StatusTarefa.EmAtraso);
 
-            //salvar tarefas
-            _repo.AtualizarTarefas(tarefas.ToArray());
+                //salvar tarefas
+                _repo.AtualizarTarefas(tarefas.ToArray());
+                
+                return new CommandResult(true);
+            }
+            catch (Exception)
+            {
+                return new CommandResult(false);
+            }
         }
     }
 }

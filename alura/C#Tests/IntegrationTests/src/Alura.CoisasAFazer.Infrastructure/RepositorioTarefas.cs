@@ -5,13 +5,13 @@ using Alura.CoisasAFazer.Core.Models;
 
 namespace Alura.CoisasAFazer.Infrastructure
 {
-    public class RepositorioTarefa : IRepositorioTarefas
+    public class RepositorioTarefas : IRepositorioTarefas
     {
         DbTarefasContext _ctx;
 
-        public RepositorioTarefa()
+        public RepositorioTarefas(DbTarefasContext context)
         {
-            _ctx = new DbTarefasContext();
+            _ctx = context;
         }
 
         public void AtualizarTarefas(params Tarefa[] tarefas)
@@ -30,6 +30,11 @@ namespace Alura.CoisasAFazer.Infrastructure
         {
             _ctx.Tarefas.AddRange(tarefas);
             _ctx.SaveChanges();
+        }
+
+        public object ObtemTarefas()
+        {
+            throw new NotImplementedException();
         }
 
         public Categoria ObtemCategoriaPorId(int id)
