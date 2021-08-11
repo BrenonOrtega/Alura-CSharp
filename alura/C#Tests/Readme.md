@@ -44,8 +44,7 @@ Each feature being tested should have it's own file and detecting the equivalenc
 
 * [NUnit](https://nunit.org/)
 
-* [Comparativo entre os frameworks de Test]
-(https://xunit.github.io/docs/comparisons)
+* [Comparativo entre os frameworks de Test](https://xunit.github.io/docs/comparisons)
 
 * [Porque xUnit?](https://www.martin-brennan.com/why-xunit/)
 
