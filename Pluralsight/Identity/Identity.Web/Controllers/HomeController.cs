@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Identity.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Identity.Web.Controllers
 {
@@ -18,11 +19,19 @@ namespace Identity.Web.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
 
+        [Route("[Action]")]
+        [Authorize]
+        public IActionResult Secret()
+        {
+            return Ok(new { SecretMessage = "shh this should be a secret"});
+        }
+        
         public IActionResult Privacy()
         {
             return View();
