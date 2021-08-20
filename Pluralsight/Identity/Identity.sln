@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Domain", "Identity
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Web", "Identity.Web\Identity.Web.csproj", "{4BD17B8A-AF78-4069-A39D-69435CE139E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Tests", "Identity.Tests\Identity.Tests.csproj", "{8FD498B9-DDEF-4D88-9334-E143CFB609C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,5 +72,17 @@ Global
 		{4BD17B8A-AF78-4069-A39D-69435CE139E7}.Release|x64.Build.0 = Release|Any CPU
 		{4BD17B8A-AF78-4069-A39D-69435CE139E7}.Release|x86.ActiveCfg = Release|Any CPU
 		{4BD17B8A-AF78-4069-A39D-69435CE139E7}.Release|x86.Build.0 = Release|Any CPU
+		{8FD498B9-DDEF-4D88-9334-E143CFB609C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FD498B9-DDEF-4D88-9334-E143CFB609C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FD498B9-DDEF-4D88-9334-E143CFB609C6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8FD498B9-DDEF-4D88-9334-E143CFB609C6}.Debug|x64.Build.0 = Debug|Any CPU
+		{8FD498B9-DDEF-4D88-9334-E143CFB609C6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8FD498B9-DDEF-4D88-9334-E143CFB609C6}.Debug|x86.Build.0 = Debug|Any CPU
+		{8FD498B9-DDEF-4D88-9334-E143CFB609C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FD498B9-DDEF-4D88-9334-E143CFB609C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FD498B9-DDEF-4D88-9334-E143CFB609C6}.Release|x64.ActiveCfg = Release|Any CPU
+		{8FD498B9-DDEF-4D88-9334-E143CFB609C6}.Release|x64.Build.0 = Release|Any CPU
+		{8FD498B9-DDEF-4D88-9334-E143CFB609C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{8FD498B9-DDEF-4D88-9334-E143CFB609C6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

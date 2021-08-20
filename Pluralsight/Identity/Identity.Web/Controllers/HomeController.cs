@@ -26,7 +26,6 @@ namespace Identity.Web.Controllers
         }
 
         [Route("[Action]")]
-        [Authorize]
         public IActionResult Secret()
         {
             return Ok(new { SecretMessage = "shh this should be a secret"});

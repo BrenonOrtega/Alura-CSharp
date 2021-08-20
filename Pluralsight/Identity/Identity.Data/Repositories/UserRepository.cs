@@ -1,18 +1,20 @@
 using System.Linq;
 using System.Linq.Expressions;
+using Identity.Data.Extensions;
 using Identity.Domain.Models;
 using Identity.Domain.Repositories;
 using static Identity.Domain.Models.User;
 
 namespace Identity.Data.Repositories
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IUserRepository
     {
         private readonly AppDbContext _context;
 
         public UserRepository(AppDbContext context)
         {
             _context = context;
+            
         }
 
         public void Delete(int id)
@@ -24,11 +26,20 @@ namespace Identity.Data.Repositories
             _context.SaveChanges();
         }
 
-        public virtual IQueryable<User> Get(Expression<System.Func<User, bool>> filter)
+        public virtual IQueryable<User> Get(Expression<System.Func<User, bool>> filter = null)
         {
+            filter ??= x => true;
             var query = _context.Users.Where(filter);
 
             return query;
+        }
+
+        public User GetByEmailAndPassword(string email, string encriptedPassword)
+        {
+            var user = Get(x => x.Email == email && x.Password == encriptedPassword)
+                .SingleOrDefault();
+
+            return user ?? NullUser;
         }
 
         public User GetById(int id)
@@ -38,6 +49,11 @@ namespace Identity.Data.Repositories
                 .SingleOrDefault();
 
             return user;
+        }
+
+        public string GetSha256EncryptedPassword(string Password)
+        {
+            throw new System.NotImplementedException();
         }
 
         public void Save(User entity)

@@ -1,48 +1,98 @@
-@model Identity.Domain.Models.User;
+@using Microsoft.AspNetCore.Components
 
+@model Identity.Web.Models.UserViewModel;
 @{
-    ViewData["Title"] = "Login Page";
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var redirectUrl = ViewData["redirectUrl"] as string;
 }
 
-<div class="text-center">
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Please enter your credentials</h3>
-                </div>
-                <div class="panel-body">
+@* <div class="text-center">
+    <h2 class="display-3">Log In or Sign Up</h1>
+    @* <form @* method="post" enctype="multipart/form-data" asp-controller="Login" asp-action="Login">
+    <form asp-action="Login">
+    <div asp-validation-summary="ModelOnly">
+    @Html.HiddenFor( model => model.RedirectUrl)
+    <table class="form-group">
+    <tr>
+    <td asp-for="Name">First Name: </td>
+    <td><input type="text" id="txtName" asp-for="Name"></td>
+    </tr>
+    <tr>
+    <td>Email: </td>
+    <td><input type="email" id="txtEmail" asp-for="Email"></td>
+    </tr>
+    <tr>
+    <td>Password: </td>
+    <td><input type="password" id="txtPassword" class="text-danger" asp-validation-for="Password">
+    </td>
+    </tr>
+    <tr>
+    <td>Favorite Movie: </td>
+    <td><input type="text" id="txtFavoriteMovie" asp-for="FavoriteMovie"></td>
+    </tr>
+    <tr>
+    <td>Role: </td>
+    <td><input type="text" id="txtRole"></td>
+    </tr>
+    <div class="form-group">
+    <div class="checkbox">
+    <label>
+    <input type="checkbox" asp-for="RememberLogin" />
+    @Html.DisplayNameFor(model => model.RememberLogin)
+    </label>
+    </div>
+    </div>
+    <div class="form-group">
+    <input type="submit" value="Login" class btn btn-default>
+    </div>
+    <tr>
+    <td></td>
+    <td><input type="submit" value="submit"></td>
+    </tr>
+    </div>
+    </table>
+    </form>
+    </div> *@
 
-                    <form asp-route="Login">
-                        <input type="hidden" asp-for="ReturnUrl" />
 
-                        <fieldset>
-                            <div class="form-group">
-                                <label asp-for="FirstName"></label>
-                                <input class="form-control" placeholder="Username" asp-for="Username" autofocus>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Password"></label>
-                                <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
-                            </div>
-                            <div class="form-group login-remember">
-                                <label asp-for="RememberLogin">
-                                    <input asp-for="RememberLogin">
-                                    <strong>Remember Me</strong>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-primary">Login</button>
-                            </div>
-                        </fieldset>
-                    </form>
+<h2>Login</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SignIn" method="POST" action="/SignIn?redirectUrl=@System.Net.WebUtility.UrlEncode(redirectUrl)">
+            <div class="text-danger"></div>
+            @if (!string.IsNullOrEmpty(ViewBag.Message))
+            {
+                <span class="text-danger">
+                    @ViewBag.Message
+                </span>
+            }
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="RememberLogin" /> @Html.DisplayNameFor(model => model.RememberLogin)
+                    </label>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <p>Or login with an account you already have:</p>
-            <a class="btn btn-primary" asp-action="LoginWithGoogle" 
-               asp-route-returnUrl="@Model.ReturnUrl">Login with Google</a>
-        </div>
+            <div class="form-group">
+                <input type="submit" value="Sign In" class="btn btn-default" />
+            </div>
+        </form>
     </div>
 </div>

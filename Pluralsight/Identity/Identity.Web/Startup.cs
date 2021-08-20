@@ -29,8 +29,8 @@ namespace Identity.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<AppDbContext>();
-            services.AddTransient<IRepository<User>, UserRepository>();
+            services.AddDbContext<AppDbContext>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(o => o.LoginPath="/Login");
@@ -39,10 +39,11 @@ namespace Identity.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppDbContext ctx)
         {
             if (env.IsDevelopment())
             {
+                ctx.Database.EnsureCreated();
                 app.UseDeveloperExceptionPage();
             }
             else
