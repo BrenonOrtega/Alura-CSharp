@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Identity.Web.Models
 {
@@ -21,6 +22,18 @@ namespace Identity.Web.Models
         [Required]
         public string FavoriteMovie { get; set; }
         public bool RememberLogin { get; set; }
+
+        [JsonIgnore]
         public string RedirectUrl { get; set; }
+
+        public static UserViewModel NullObject => new UserViewModel
+        {   
+            Name = "string",
+            Email = "string",
+            Password = "string",
+            Role = "string",
+            FavoriteMovie = "string",
+            RememberLogin = false,
+        };
     }
 }
