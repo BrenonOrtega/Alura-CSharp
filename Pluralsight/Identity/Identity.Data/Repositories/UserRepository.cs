@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Identity.Data.Extensions;
 using Identity.Domain.Models;
 using Identity.Domain.Repositories;
@@ -14,7 +15,6 @@ namespace Identity.Data.Repositories
         public UserRepository(AppDbContext context)
         {
             _context = context;
-            
         }
 
         public void Delete(int id)
@@ -34,12 +34,12 @@ namespace Identity.Data.Repositories
             return query;
         }
 
-        public User GetByEmailAndPassword(string email, string encriptedPassword)
+        public Task<User> GetByEmailAndPassword(string email, string password)
         {
-            var user = Get(x => x.Email == email && x.Password == encriptedPassword)
+            var user = Get(x => x.Email == email && x.Password == password)
                 .SingleOrDefault();
 
-            return user ?? NullUser;
+            return Task.FromResult(user ?? NullUser);
         }
 
         public User GetById(int id)
@@ -50,12 +50,6 @@ namespace Identity.Data.Repositories
 
             return user;
         }
-
-        public string GetSha256EncryptedPassword(string Password)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void Save(User entity)
         {
             _context.Users.Add(entity);
