@@ -39,13 +39,13 @@ namespace Identity.Data.Repositories
             var user = Get(x => x.Email == email && x.Password == password)
                 .SingleOrDefault();
 
-            return Task.FromResult(user ?? NullUser);
+            return Task.FromResult(user ?? Null);
         }
 
         public User GetById(int id)
         {
             var user = Get(u => u.Id == id)
-                .DefaultIfEmpty(User.NullUser)
+                .DefaultIfEmpty(User.Null)
                 .SingleOrDefault();
 
             return user;
@@ -60,7 +60,7 @@ namespace Identity.Data.Repositories
         {
             var user = GetById(id);
 
-            if (user == NullUser)
+            if (user == Null)
                 throw new System.Exception("Not found");
 
             _context.Entry(user).CurrentValues.SetValues(updatedData);
