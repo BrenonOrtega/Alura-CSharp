@@ -6,12 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authorization;
 using Identity.Web.Models;
+using Identity.Data.Services;
 using Identity.Domain.Repositories;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
 using static Identity.Domain.Models.User;
-using Identity.Web.Services;
 
 namespace Identity.Web.Controllers
 {
@@ -41,8 +38,8 @@ namespace Identity.Web.Controllers
         {
             var user = await _repo.GetByEmailAndPassword(model.Email, model.Password);
 
-            if (user == NullUser)
-                return Unauthorized(new 
+            if (user == Null)
+                return Unauthorized(new
                 {
                     user = new { user.Email, user.Name },
                 });

@@ -40,7 +40,7 @@ namespace Identity.Web.Controllers
         {
             var user = await _repo.GetByEmailAndPassword(model.Email, model.Password);
 
-            if (user == NullUser)
+            if (user == Null)
                 return View("Error", new ErrorViewModel());
 
             var claims = new Claim[]{
