@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="Rabbitmq.client" Version="6.2.2" />
+    <PackageReference Include="Rabbitmq.dependencyinjection" Version="2.6201.3000" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectREference Include="..\FireOnWheels.Shared.Messaging\FireOnWheels.Shared.Messaging.csproj" />
+  </ItemGroup>
+
+</Project>
