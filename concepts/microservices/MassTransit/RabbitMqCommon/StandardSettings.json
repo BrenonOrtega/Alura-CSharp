@@ -1,0 +1,11 @@
+{
+    "rabbitmq": {
+        "Hostname": "localhost",
+        "Port": 15672,
+        "QueueName": "transfer-orders",
+        "Username": "admin",
+        "Password": "admin",
+        "Vhost":"/",
+        "NetworkRecoveryIntervalInSeconds": 8
+      }
+    }
