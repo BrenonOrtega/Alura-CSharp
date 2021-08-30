@@ -1,3 +1,5 @@
+using System;
+
 namespace FireOnWheels.Shared.Messaging
 {
     public interface IOrderRegistrationCommand

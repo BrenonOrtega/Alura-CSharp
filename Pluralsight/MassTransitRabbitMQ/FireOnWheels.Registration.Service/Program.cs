@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MassTransit;
+using static FireOnWheels.Shared.Messaging.MassTransitRabbitMqConstants;
 
 namespace FireOnWheels.Registration.Service
 {
@@ -24,6 +26,28 @@ namespace FireOnWheels.Registration.Service
                         .AddCommandLine(args))
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddMassTransit(x =>
+                    {
+                        x.SetKebabCaseEndpointNameFormatter();
+
+                        x.UsingRabbitMq((context, cfg) =>
+                        {
+                            cfg.Host(new Uri(RabbitMqUri), host =>
+                            {
+                                host.Username(Username);
+                                host.Password(Password);
+                            });
+
+                            cfg.ReceiveEndpoint(RegisterOderQueue, e =>
+                            {
+                                e.Consumer<MassTransitConsumer>();
+                            });
+
+                            cfg.ConfigureEndpoints(context);
+                        });
+                    });
+
+                    services.AddMassTransitHostedService();
                     services.AddHostedService<Worker>();
                 });
     }

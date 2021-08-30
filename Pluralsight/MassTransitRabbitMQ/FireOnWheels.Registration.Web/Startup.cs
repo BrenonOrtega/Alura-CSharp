@@ -11,10 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using RabbitMQ.Client;
-using RabbitMQ.DependencyInjection;
-
-
+using MassTransit;
+using mtConfig = FireOnWheels.Shared.Messaging.MassTransitRabbitMqConstants;
 namespace FireOnWheels.Registration.Web
 {
     public class Startup
@@ -29,6 +27,16 @@ namespace FireOnWheels.Registration.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMassTransit(x =>
+            {
+                x.SetKebabCaseEndpointNameFormatter();
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host(mtConfig.RabbitMqUri, host => { host.Username(mtConfig.Username); host.Password(mtConfig.Password); });
+                    cfg.ConfigureEndpoints(context);
+                });
+            });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -1,49 +1,75 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MassTransit;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using FireOnWheels.Shared.Messaging;
 using System.Text.Json;
-using System.Text;
-using static FireOnWheels.Shared.Messaging.RabbitMqConstants
-;
+using FireOnWheels.Shared.Messaging.Converters;
+using FireOnWheels.Shared.Messaging.Infra;
+using static FireOnWheels.Shared.Messaging.RabbitMqConstants;
+using mt = FireOnWheels.Shared.Messaging.MassTransitRabbitMqConstants;
 namespace FireOnWheels.Registration.Service
 {
     public class Worker : BackgroundService
     {
-        private readonly ILogger<Worker> _logger;
-        private readonly IConnectionFactory _factory;
-        private readonly IConnection _connection;
-        private readonly IModel _channel;
-
+        private ILogger<Worker> _logger;
+        private IConnectionFactory _factory;
+        private IConnection _connection;
+        private IModel _channel;
+        private IBusControl bus;
 
         public Worker(ILogger<Worker> logger)
         {
             _logger = logger;
 
-            _factory = new ConnectionFactory() { Uri = new Uri(RabbitMqUri) };
-            _connection = _factory.CreateConnection();
-            _channel = _connection.CreateModel();
-
-            _channel.QueueDeclare(RegisterOderQueue, true,false, false, null);
-            _channel.QueueBind(RegisterOderQueue, RegisterOderExchange, "", null);
+            UseRabbitMqConsumer();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var consumer = new EventingBasicConsumer(_channel);
-            consumer.Received += (x, y) =>
-            {
-                var body = y.Body.ToArray();
-                var registration = JsonSerializer.Deserialize<OrderRegistration>(body);
+            var consumer = new AsyncEventingBasicConsumer(_channel);
 
-                Console.WriteLine($"Order Registration { registration.Id }: { registration.Order }");
+            OrderRegistration registration;
+            consumer.Received += async (sender, eventArgs) =>
+            {
+
+                var contentArray = eventArgs.Body.ToArray();
+                var options = new JsonSerializerOptions();
+                options.Converters.Add(new IOrderConverter());
+
+                registration = JsonSerializer.Deserialize<OrderRegistration>(contentArray, options);
+
+                Console.WriteLine($"Order Registration { registration?.Id }: { registration?.Order }");
+                _channel.BasicAck(1, false);
+                await Task.CompletedTask;
             };
+
+            _channel.BasicConsume(RegisterOderQueue, false, consumer);
+            await Task.CompletedTask;
+
+        }
+
+        private void UseRabbitMqConsumer()
+        {
+            _factory = new ConnectionFactory() { Uri = new Uri(RabbitMqUri), DispatchConsumersAsync = true };
+            _connection = _factory.CreateConnection();
+            _channel = _connection.CreateModel();
+
+            _channel.QueueDeclare(RegisterOderQueue, true, false, false, null);
+            _channel.QueueBind(RegisterOderQueue, RegisterOderExchange, "", null);
+            _channel.BasicQos(0, 1, false);
+        }
+        
+        public override void Dispose()
+        {
+            _channel.Close();
+            _connection.Close();
+            base.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

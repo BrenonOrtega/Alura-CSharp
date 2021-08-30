@@ -13,6 +13,5 @@ namespace FireOnWheels.Registration.Service
         public bool IsOversized { get; set; }
 
         public override string ToString() => $"Id {Id} Person {Sender}, Sender: {Sender}, Fragile {IsFragile}";
-
     }
 }
