@@ -1,0 +1,52 @@
+version: 3.9
+networks:
+  mass-transit-test-network:
+    driver: bridge
+
+services:
+  rabbit-mq:
+    image: "bitnami/rabbitmq:latest"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - mass-transit-test-network
+    environment: 
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - RABBITMQ_PLUGINS=rabbitmq_management
+    deploy:
+      resources:
+          limits:
+              memory: 450M
+
+  db:
+    image: postgres
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+    ports: 
+      - "5431:5432"
+    environment: 
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "postgres"
+    networks:
+      - mass-transit-test-network
+    depends_on:
+      - rabbit-mq
+    deploy:
+        resources:
+            limits:
+                memory: 300M
+
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+    depends_on: 
+      - db
+      - rabbit-mq
+    networks:
+      - mass-transit-test-network
