@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+using MassTransit;
 using Microsoft.Extensions.Hosting;
+using static FireOnWheels.Shared.Messaging.MassTransitRabbitMqConstants;
 
 namespace FireOnWheels.Notification.Service
 {
@@ -18,7 +15,21 @@ namespace FireOnWheels.Notification.Service
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<Worker>();
+                    services.AddMassTransit(x =>
+                    {
+                        x.AddConsumer<IOrderRegisteredEventConsumer>();
+                        x.UsingRabbitMq((context, cfg) =>
+                        {
+                            cfg.Host(RabbitMqUri, host =>
+                            {
+                                host.Password(Password);
+                                host.Username(Username);
+                            });
+
+                            cfg.ConfigureEndpoints(context);
+                        });
+                    });
+                    services.AddMassTransitHostedService();
                 });
     }
 }
