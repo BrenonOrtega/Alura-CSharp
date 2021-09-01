@@ -1,6 +1,5 @@
 using MassTransit;
 using Microsoft.Extensions.Hosting;
-using static FireOnWheels.Shared.Messaging.MassTransitRabbitMqConstants;
 
 namespace FireOnWheels.Notification.Service
 {
@@ -15,15 +14,17 @@ namespace FireOnWheels.Notification.Service
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    var config = hostContext.Configuration;
+
                     services.AddMassTransit(x =>
                     {
                         x.AddConsumer<IOrderRegisteredEventConsumer>();
                         x.UsingRabbitMq((context, cfg) =>
                         {
-                            cfg.Host(RabbitMqUri, host =>
+                            cfg.Host(config["MassTransit:RabbitMQ:Uri"], host =>
                             {
-                                host.Password(Password);
-                                host.Username(Username);
+                                host.Username(config["MassTransit:RabbitMQ:Username"]);
+                                host.Password(config["MassTransit:RabbitMQ:Password"]);
                             });
 
                             cfg.ConfigureEndpoints(context);
