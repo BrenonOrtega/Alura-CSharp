@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MassTransit;
-using mtConfig = FireOnWheels.Shared.Messaging.MassTransitRabbitMqConstants;
+
 namespace FireOnWheels.Registration.Web
 {
     public class Startup
@@ -32,7 +32,11 @@ namespace FireOnWheels.Registration.Web
                 x.SetKebabCaseEndpointNameFormatter();
                 x.UsingRabbitMq((context, cfg) =>
                 {
-                    cfg.Host(mtConfig.RabbitMqUri, host => { host.Username(mtConfig.Username); host.Password(mtConfig.Password); });
+                    cfg.Host(Configuration["MassTransit:RabbitMQ:Uri"], host =>
+                    {
+                        host.Username(Configuration["MassTransit:RabbitMQ:Username"]); 
+                        host.Password(Configuration["MassTransit:RabbitMQ:Password"]);
+                    });
                     cfg.ConfigureEndpoints(context);
                 });
             });

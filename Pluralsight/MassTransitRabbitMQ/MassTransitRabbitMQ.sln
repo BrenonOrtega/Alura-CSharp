@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FireOnWheels.Registration.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FireOnWheels.Shared.Messaging", "FireOnWheels.Shared.Messaging\FireOnWheels.Shared.Messaging.csproj", "{A7E0A226-6AF8-4621-8258-7DF9A9D639F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FireOnWheels.Registration.CreatedAt", "FireOnWheels.Registration.CreatedAt\FireOnWheels.Registration.CreatedAt.csproj", "{C639F57E-5DA5-417D-8DFA-3A02D21CE389}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +74,17 @@ Global
 		{A7E0A226-6AF8-4621-8258-7DF9A9D639F5}.Release|x64.Build.0 = Release|Any CPU
 		{A7E0A226-6AF8-4621-8258-7DF9A9D639F5}.Release|x86.ActiveCfg = Release|Any CPU
 		{A7E0A226-6AF8-4621-8258-7DF9A9D639F5}.Release|x86.Build.0 = Release|Any CPU
+		{C639F57E-5DA5-417D-8DFA-3A02D21CE389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C639F57E-5DA5-417D-8DFA-3A02D21CE389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C639F57E-5DA5-417D-8DFA-3A02D21CE389}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C639F57E-5DA5-417D-8DFA-3A02D21CE389}.Debug|x64.Build.0 = Debug|Any CPU
+		{C639F57E-5DA5-417D-8DFA-3A02D21CE389}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C639F57E-5DA5-417D-8DFA-3A02D21CE389}.Debug|x86.Build.0 = Debug|Any CPU
+		{C639F57E-5DA5-417D-8DFA-3A02D21CE389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C639F57E-5DA5-417D-8DFA-3A02D21CE389}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C639F57E-5DA5-417D-8DFA-3A02D21CE389}.Release|x64.ActiveCfg = Release|Any CPU
+		{C639F57E-5DA5-417D-8DFA-3A02D21CE389}.Release|x64.Build.0 = Release|Any CPU
+		{C639F57E-5DA5-417D-8DFA-3A02D21CE389}.Release|x86.ActiveCfg = Release|Any CPU
+		{C639F57E-5DA5-417D-8DFA-3A02D21CE389}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
