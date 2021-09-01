@@ -1,0 +1,11 @@
+﻿{
+  "profiles": {
+    "FireOnWheels.Registration.InheritedAddress": {
+      "commandName": "Project",
+      "dotnetRunMessages": "true",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
