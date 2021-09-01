@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MassTransit;
-using static FireOnWheels.Shared.Messaging.MassTransitRabbitMqConstants;
 
 namespace FireOnWheels.Registration.Service
 {
@@ -21,26 +20,24 @@ namespace FireOnWheels.Registration.Service
             Host.CreateDefaultBuilder(args)
                 .ConfigureHostConfiguration(configBuilder => configBuilder.AddCommandLine(args)
                         .AddEnvironmentVariables()
-                        .AddJsonFile("appsettings.json")
+                        .AddJsonFile("appsettings.json", optional: false)
                         .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
                         .AddCommandLine(args))
                 .ConfigureServices((hostContext, services) =>
                 {
+                    var config = hostContext.Configuration;
+                    
                     services.AddMassTransit(x =>
                     {
                         x.SetKebabCaseEndpointNameFormatter();
 
+                        x.AddConsumer<OrderRegistrationConsumer>();
                         x.UsingRabbitMq((context, cfg) =>
                         {
-                            cfg.Host(new Uri(RabbitMqUri), host =>
+                            cfg.Host(config["MassTransit:RabbitMQ:Uri"], host =>
                             {
-                                host.Username(Username);
-                                host.Password(Password);
-                            });
-
-                            cfg.ReceiveEndpoint(RegisterOderQueue, e =>
-                            {
-                                e.Consumer<MassTransitConsumer>();
+                                host.Username(config["MassTransit:RabbitMQ:Username"]);
+                                host.Password(config["MassTransit:RabbitMQ:Password"]);
                             });
 
                             cfg.ConfigureEndpoints(context);
@@ -48,7 +45,7 @@ namespace FireOnWheels.Registration.Service
                     });
 
                     services.AddMassTransitHostedService();
-                    services.AddHostedService<Worker>();
+                    //services.AddHostedService<Worker>();
                 });
     }
 }
