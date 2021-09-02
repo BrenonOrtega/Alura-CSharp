@@ -10,12 +10,10 @@ namespace FireOnWheels.Registration.Service
     public class OrderRegistrationConsumer : IConsumer<IOrderRegistrationCommand>
     {
         private readonly ILogger<OrderRegistrationConsumer> _logger;
-        private readonly IPublishEndpoint _endpoint;
 
-        public OrderRegistrationConsumer(ILogger<OrderRegistrationConsumer> logger, IPublishEndpoint endpoint)
+        public OrderRegistrationConsumer(ILogger<OrderRegistrationConsumer> logger)
         {
             _logger = logger;
-            _endpoint = endpoint ?? throw new ArgumentNullException(nameof(endpoint));
         }
         public Task Consume(ConsumeContext<IOrderRegistrationCommand> context)
         {
@@ -27,7 +25,7 @@ namespace FireOnWheels.Registration.Service
             );
 
             _logger.LogInformation(context.Message.ToString());
-            return _endpoint.Publish<IOrderRegisteredEvents>(new{ Id=command.Id, Order=command.Order });
+            return context.Send<IOrderRegisteredEvents>(new{ Id=command.Id, Order=command.Order });
         }
     }
 }

@@ -37,6 +37,7 @@ namespace FireOnWheels.Registration.Web
                         host.Username(Configuration["MassTransit:RabbitMQ:Username"]); 
                         host.Password(Configuration["MassTransit:RabbitMQ:Password"]);
                     });
+
                     cfg.ConfigureEndpoints(context);
                 });
             });

@@ -11,7 +11,6 @@ namespace FireOnWheels.Notification.Service
     public class IOrderRegisteredEventConsumer : IConsumer<IOrderRegisteredEvents>
     {
         private readonly ILogger<IOrderRegisteredEventConsumer> _logger;
-
         public IOrderRegisteredEventConsumer(ILogger<IOrderRegisteredEventConsumer> logger)
         {
             _logger = logger;
@@ -21,6 +20,7 @@ namespace FireOnWheels.Notification.Service
         {
             _logger.LogInformation($"{context.Message}");
             File.WriteAllText(Path.Join(AppContext.BaseDirectory, "../../Notification.json"), JsonSerializer.Serialize<IOrderRegisteredEvents>(context.Message));
+            context.Publish<IOrderNotifiedEvent>(new {context.Message.Order});
             return Task.CompletedTask;
         }
     }

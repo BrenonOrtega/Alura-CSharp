@@ -5,7 +5,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using FireOnWheels.Registration.Web.Dtos;
 using FireOnWheels.Shared.Messaging;
-using FireOnWheels.Shared.Messaging.Infra;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using RabbitMQ.Client;
@@ -56,7 +55,7 @@ namespace FireOnWheels.Registration.Web.Controllers
         {
             var publishUri = new Uri(mt.RabbitMqUri + mt.OrderRegisteredQueue);
             var command = new OrderRegistrationCommand(order);
-            await _endpoint.Publish<IOrderRegistrationCommand>(command);
+            await _endpoint.Publish(command);
 
             return Accepted(command);
         }
