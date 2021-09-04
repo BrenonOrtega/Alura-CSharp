@@ -19,9 +19,7 @@ namespace FireOnWheels.Notification.Service
         public Task Consume(ConsumeContext<IOrderRegisteredEvents> context)
         {
             _logger.LogInformation($"{context.Message}");
-            File.WriteAllText(Path.Join(AppContext.BaseDirectory, "../../Notification.json"), JsonSerializer.Serialize<IOrderRegisteredEvents>(context.Message));
-            context.Publish<IOrderNotifiedEvent>(new {context.Message.Order});
-            return Task.CompletedTask;
+            return context.Publish<IOrderNotifiedEvent>(new {context.Message.Order});
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Automatonymous;
 using FireOnWheels.Saga.Components.Sagas;
 using FireOnWheels.Shared.Messaging;
@@ -8,31 +9,6 @@ using Microsoft.Extensions.Logging;
 
 namespace FireOnWheels.Saga.Components.StateMachines
 {
-    public class OrderStateMachineLogger : ILogger<OrderStateMachine>, IDisposable
-
-    {
-        public IDisposable BeginScope<TState>(TState state)
-        {
-            return this;
-        }
-
-        public void Dispose()
-        {
-            Console.Out.WriteLine("disposed");
-        }
-
-        public bool IsEnabled(LogLevel logLevel)
-        {
-            return true;
-        }
-
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
-        {
-            if (exception is null)
-                File.AppendAllText(Path.Join(AppContext.BaseDirectory, "../../../SagaLog.txt"), state?.ToString());
-        }
-    }
-
     public class OrderStateMachine : MassTransitStateMachine<OrderSaga>
     {
         private ILogger<OrderStateMachine> _logger;
@@ -40,13 +16,12 @@ namespace FireOnWheels.Saga.Components.StateMachines
         public OrderStateMachine(ILogger<OrderStateMachine> logger) : base()
         {
 
-            _logger = new OrderStateMachineLogger();
+            _logger = logger;
             InstanceState(saga => saga.State);
 
             Event(() => OrderReceived, saga => saga.CorrelateById(c => c.CorrelationId, e => e.Message.Order.Id).SelectId(c => c.Message.Order.Id));
             Event(() => OrderRegistered, saga => saga.CorrelateById(c => c.Message.Order.Id));
             Event(() => OrderNotified, saga => saga.CorrelateById(c => c.Message.Order.Id));
-
 
             Initially(
                 When(OrderReceived)
@@ -57,7 +32,6 @@ namespace FireOnWheels.Saga.Components.StateMachines
                         File.AppendAllText(Path.Join(AppContext.BaseDirectory, "../../../SagaLog.txt"), "order received /n");
                     })
                     .TransitionTo(WaitingOrderRegistration)
-                    .Publish(x => new { x.Data.Id, x.Data.Order })
             );
 
             During(WaitingOrderRegistration,
@@ -65,12 +39,11 @@ namespace FireOnWheels.Saga.Components.StateMachines
                 .TransitionTo(WaitingOrderNotification)
                 .Then(saga => saga.Instance.Update(nameof(OrderRegistered)))
                 .Then(Register)
-                .Publish(x => new { x.Data.Order })
             );
 
             During(WaitingOrderNotification,
                 When(OrderNotified)
-                .Then(Notify)
+                .ThenAsync(Notify)
                 .TransitionTo(OrderFinished)
                 .Finalize()
             );
@@ -87,8 +60,6 @@ namespace FireOnWheels.Saga.Components.StateMachines
         public Event<IOrderRegisteredEvents> OrderRegistered { get; private set; }
         public Event<IOrderNotifiedEvent> OrderNotified { get; private set; }
 
-
-
         void Initialize(BehaviorContext<OrderSaga, IOrderRegistrationCommand> context)
         {
             File.AppendAllText(Path.Join(AppContext.BaseDirectory, "../../../SagaLog.txt"), JsonSerializer.Serialize(context.Data, new() { WriteIndented = true }));
@@ -102,18 +73,20 @@ namespace FireOnWheels.Saga.Components.StateMachines
             _logger.LogInformation("Registered: {0} ({1})", context.Data.Order.Receiver, context.Instance.Order);
         }
 
-        void Notify(BehaviorContext<OrderSaga, IOrderNotifiedEvent> context)
+        async Task Notify(BehaviorContext<OrderSaga, IOrderNotifiedEvent> context)
         {
             File.AppendAllText(Path.Join(AppContext.BaseDirectory, "../../../SagaLog.txt"), JsonSerializer.Serialize(context.Data, new() { WriteIndented = true }));
             _logger.LogInformation("Invalid License: {0} ({1}) - {2}", context.Data.Order.IsFragile, context.Instance.Order,
                 context.Data.Order.Sender);
-        }
 
+            context.Instance.Update(nameof(OrderNotified));
+            await context.Instance.WriteUpdates();
+        }
 
         void InitializeInstance(OrderSaga instance, IOrder data)
         {
             _logger.LogInformation("Initializing: {0} ({1})", data.Receiver, data.Sender);
-
+            
             instance.Order = data;
         }
     }

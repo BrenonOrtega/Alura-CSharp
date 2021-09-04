@@ -25,7 +25,7 @@ namespace FireOnWheels.Registration.Service
             );
 
             _logger.LogInformation(context.Message.ToString());
-            return context.Send<IOrderRegisteredEvents>(new{ Id=command.Id, Order=command.Order });
+            return context.Publish<IOrderRegisteredEvents>(new{ Id=command.Id, Order=command.Order });
         }
     }
 }

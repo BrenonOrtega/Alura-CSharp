@@ -7,6 +7,9 @@ using Microsoft.Extensions.Hosting;
 using MassTransit;
 using FireOnWheels.Saga.Components.Sagas;
 using FireOnWheels.Saga.Components.StateMachines;
+using MassTransit.Definition;
+using Automatonymous;
+using MassTransit.Saga;
 
 namespace FireOnWheels.Saga
 {
@@ -22,14 +25,21 @@ namespace FireOnWheels.Saga
                 .ConfigureServices((hostContext, services) =>
                 {
                     var config = hostContext.Configuration;
+
+                    services.AddSingleton<SagaStateMachine<OrderSaga>, OrderStateMachine>();
+                    services.AddSingleton<ISagaRepository<OrderSaga>>(_ => new InMemorySagaRepository<OrderSaga>());
+
                     services.AddMassTransit(x =>
                     {
                         x.UsingRabbitMq((context, cfg) =>
                         {
                             x.SetKebabCaseEndpointNameFormatter();
-                            x.AddSagaRepository<OrderSaga>().InMemoryRepository();
+                           
+                            x.AddSagaStateMachine<OrderStateMachine, OrderSaga>()
+                                .InMemoryRepository();
+                            
 
-                            x.AddSagaStateMachine<OrderStateMachine, OrderSaga>();
+                            
                             cfg.Host(config["MassTransit:RabbitMq:Uri"], host =>
                             {
                                 host.Username(config["MassTransit:RabbitMq:Username"]);
@@ -39,7 +49,7 @@ namespace FireOnWheels.Saga
                             cfg.ConfigureEndpoints(context);
                         });
 
-                        services.AddMassTransitHostedService();
+                    services.AddMassTransitHostedService();
                     });
                 });
     }

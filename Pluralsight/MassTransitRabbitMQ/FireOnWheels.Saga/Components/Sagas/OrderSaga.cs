@@ -1,8 +1,10 @@
+using Automatonymous;
+using FireOnWheels.Shared.Messaging;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Automatonymous;
-using FireOnWheels.Shared.Messaging;
+using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace FireOnWheels.Saga.Components.Sagas
 {
@@ -10,19 +12,10 @@ namespace FireOnWheels.Saga.Components.Sagas
     {
         private Guid correlationId;
 
-        public Guid CorrelationId 
-        { 
-            get 
-            { 
-                PropertyChanged(); 
-                return correlationId; 
-            } 
-            set { correlationId = value; } 
-        }
-
-        private void PropertyChanged()
+        public Guid CorrelationId
         {
-            File.AppendAllText(Path.Join(AppContext.BaseDirectory, "../../../saga"), $"Just been used {correlationId} ");
+            get => correlationId;
+            set => correlationId = value;
         }
 
         public State State { get; set; }
@@ -34,9 +27,13 @@ namespace FireOnWheels.Saga.Components.Sagas
 
         public ICollection<string> Updates { get; set; } = new HashSet<string>();
 
-        public void Update(string eventName) => Updates.Add($"Update Hour: {DateTime.Now} - Updater: { eventName } ");
+        public void Update(string eventName) =>
+            Updates.Add($"Update Hour: { DateTime.Now } - ID: { Order.Id } - CorrelationId: { CorrelationId } Updater: { eventName } ");
 
+        public Task WriteUpdates() => File.WriteAllTextAsync(AssemblyPath, SerialializeUpdates);
+        private string SerialializeUpdates =>
+             JsonSerializer.Serialize<ICollection<string>>(Updates, new JsonSerializerOptions { WriteIndented = true });
 
-
+        private string AssemblyPath => Path.Join(AppContext.BaseDirectory, "..\\..\\..\\SagaUpdates.txt");
     }
 }
