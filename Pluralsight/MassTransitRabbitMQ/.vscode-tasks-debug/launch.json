@@ -1,0 +1,78 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Core Launch (web)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build web project",
+      "program": "${workspaceFolder}/FireOnWheels.Registration.Web/bin/Debug/net5.0/FireOnWheels.Registration.Web.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/FireOnWheels.Registration.Web",
+      "stopAtEntry": false,
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+      },
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "sourceFileMap": {
+        "/Views": "${workspaceFolder}/Views"
+      }
+    },
+
+    {
+      "name": "Launch Registration Service",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Registration service",
+      "program": "${workspaceFolder}/FireOnWheels.Registration.Service/bin/Debug/net5.0/FireOnWheels.Registration.Service.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/FireOnWheels.Registration.Service",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    },
+
+    {
+      "name": "Launch Registration CreatedAt",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Registration CreatedAt",
+      "program": "${workspaceFolder}/FireOnWheels.Registration.CreatedAt/bin/Debug/net5.0/FireOnWheels.Registration.CreatedAt.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/FireOnWheels.Registration.CreatedAt",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    },
+
+    {
+      "name": "Launch Notification Service",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Notification service",
+      "program": "${workspaceFolder}/FireOnWheels.Notification.Service/bin/Debug/net5.0/FireOnWheels.Notification.Service.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/FireOnWheels.Notification.Service",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    },
+
+    {
+      "name": "Launch Saga",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Saga",
+      "program": "${workspaceFolder}/FireOnWheels.Saga//bin/Debug/net5.0/FireOnWheels.Saga.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/FireOnWheels.Saga",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    },
+
+    
+  ]
+}

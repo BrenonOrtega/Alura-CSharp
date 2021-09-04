@@ -1,0 +1,115 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "compose",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": ["up", "-d"],
+      "problemMatcher": "^docker"
+    },
+    {
+      "label": "build Shared Messaging",
+      "command": "dotnet",
+      "type": "process",
+      "dependsOn": ["compose"],
+      "args": [
+        "build",
+        "${workspaceFolder}/FireOnWheels.Shared.Messaging/FireOnWheels.Shared.Messaging.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build Registration service",
+      "command": "dotnet",
+      "type": "process",
+      "dependsOn": ["compose", "build Shared Messaging"],
+      "args": [
+        "build",
+        "${workspaceFolder}/FireOnWheels.Registration.Service/FireOnWheels.Registration.Service.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build Notification service",
+      "command": "dotnet",
+      "type": "process",
+      "dependsOn": ["compose", "build Shared Messaging"],
+      "args": [
+        "build",
+        "${workspaceFolder}/FireOnWheels.Notification.Service/FireOnWheels.Notification.Service.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build Registration CreatedAt",
+      "command": "dotnet",
+      "type": "process",
+      "dependsOn": ["compose", "build Shared Messaging"],
+      "args": [
+        "build",
+        "${workspaceFolder}/FireOnWheels.Registration.CreatedAt/FireOnWheels.Registration.CreatedAt.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build web project",
+      "command": "dotnet",
+      "type": "process",
+      "dependsOn": ["compose", "build Shared Messaging"],
+      "args": [
+        "build",
+        "${workspaceFolder}/FireOnWheels.Registration.Web/FireOnWheels.Registration.Web.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build Saga",
+      "command": "dotnet",
+      "type": "process",
+      "dependsOn": ["compose", "build Shared Messaging"],
+      "args": [
+        "build",
+        "${workspaceFolder}/FireOnWheels.Saga/FireOnWheels.Saga.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "publish",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "publish",
+        "${workspaceFolder}/FireOnWheels.Registration.Service/FireOnWheels.Registration.Service.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "watch",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "watch",
+        "run",
+        "${workspaceFolder}/FireOnWheels.Registration.Service/FireOnWheels.Registration.Service.csproj",
+        "/property:GenerateFullPaths=true",
+        "/consoleloggerparameters:NoSummary"
+      ],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}
