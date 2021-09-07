@@ -9,7 +9,7 @@ namespace SimpleMediatrProj.Repositories
 {
     public abstract class BaseRepository<T> : IRepository<T> where T : class
     {
-        protected abstract List<T> Models { get; } 
+        protected static List<T> Models { get; } = new List<T>();
 
         public IEnumerable<T> Get(Func<T, bool> filter)
         {
