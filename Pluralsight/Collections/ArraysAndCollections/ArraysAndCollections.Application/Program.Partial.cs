@@ -29,6 +29,7 @@ namespace ArraysAndCollections.Application
 
         static bool ShouldExecute(Type type, string[] args) =>  
             args.Length.Equals(0) || Array.Exists(args, arg => type.Name.Equals(arg));
+            
         static bool IsExercise(Type type) => type.IsAssignableTo(typeof(IExercise));
     }
 }
