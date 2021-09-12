@@ -4,7 +4,6 @@ namespace ArraysAndCollection.Models
 {
     public class BusRoute
     {
-        private static BusRoute NullObject = new("", "" , "", -1);
         public string Name { get; set; }
         public string Origin { get; set; }
         public string Destination { get; set; }
@@ -17,6 +16,8 @@ namespace ArraysAndCollection.Models
             this.Distance = distance;
         }
 
+        public override string ToString() => $"{Name} - Origin: {Origin} - Destination:{Destination} - Distance:{Distance}";
         public static BusRoute Null => NullObject;
+        private static BusRoute NullObject = new("", "" , "", -1);
     }
 }

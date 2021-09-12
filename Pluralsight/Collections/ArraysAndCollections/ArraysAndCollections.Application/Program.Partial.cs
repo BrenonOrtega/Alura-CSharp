@@ -8,39 +8,27 @@ namespace ArraysAndCollections.Application
     {
         static void RunExercises(string[] args)
         {
-            var assemblies = Array.FindAll(Assembly.GetExecutingAssembly().GetTypes(), type => IsExercise(type));
-            if (Array.Exists(args, x => x.Equals("all")) || args.Length == 0)
-                Array.ForEach(assemblies, a =>
-                {
-                    a.InvokeMember(nameof(IExercise.Run),
-                        BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.InvokeMethod | BindingFlags.Public,
-                        null,
-                        Activator.CreateInstance(a, false),
-                        new[] { args });
-                });
+            var assemblies = Array.FindAll(Assembly.GetExecutingAssembly().GetTypes(),
+                type => IsExercise(type) && ShouldExecute(type, args) );
 
-            else
-                Array.ForEach(args, x =>
-                {
-                    try
-                    {
-                        //var type = Array.Find(assemblies, a => a.Name.Equals(x));
-                        //var method = type.GetMethod("Run", BindingFlags.Static | BindingFlags.InvokeMethod);
-                        //type.InvokeMember("Run", BindingFlags.Static | BindingFlags.IgnoreReturn | BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly, Type.DefaultBinder, null, args);
-                        //var methods = type.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.InvokeMethod);
-                        //Array.Find(methods, m => m.Name == "Run")?.Invoke(null, new[]{ args } );
+            BindingFlags ExerciseFlags = BindingFlags.Instance 
+                | BindingFlags.DeclaredOnly 
+                | BindingFlags.InvokeMethod 
+                | BindingFlags.Public
+                ;
 
-                        var type = Array.Find(assemblies, a => IsExercise(a) && a.Name.Equals(x));
-                        var runnable = Activator.CreateInstance(type, true) as IExercise;
-                        runnable.Run(args);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                    }
-                });
+            Array.ForEach(assemblies, 
+                a => a.InvokeMember(
+                    name: nameof(IExercise.Run),
+                    invokeAttr: ExerciseFlags,
+                    binder: null,
+                    target: Activator.CreateInstance(a, false),
+                    args: new[] { args }
+                ));
         }
 
+        static bool ShouldExecute(Type type, string[] args) =>  
+            args.Length.Equals(0) || Array.Exists(args, arg => type.Name.Equals(arg));
         static bool IsExercise(Type type) => type.IsAssignableTo(typeof(IExercise));
     }
 }
