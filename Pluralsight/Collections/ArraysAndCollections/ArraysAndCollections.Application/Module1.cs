@@ -2,21 +2,21 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using ArraysAndCollection.Models;
+using ArraysAndCollection.Models.Shared;
+
 namespace ArraysAndCollections.Application
 {
+    ///<Summary>
+    ///Module One is all about creating, inserting and enumerating data in arrays.
+    ///</Summary>
     public class Module1 : IExercise
     {
+        private readonly IRepository<BusRoute> repository;
         public void Run(string[] args)
         {
             CollectionInitializers();
 
-            var routes = new[]
-            {
-                new BusRoute("Route 1", "Pallet", "viridian", 3),
-                new BusRoute("Route 2", "Viridian", "Celadon", 3),
-                new BusRoute("Route 3", "Celadon", "Lavender", 3),
-                new BusRoute("Route 4", "Lavender", "Unova", 3),
-            };
+            var routes = repository.Get();
 
             AccessingDataWithIndexers(routes);
 
@@ -25,6 +25,11 @@ namespace ArraysAndCollections.Application
             IteratingUsingArrayForEach(routes);
 
             IteratingUsingListForEach(routes);
+        }
+
+        public Module1()
+        {
+            repository = new BusRouteRepository();
         }
 
         private void CollectionInitializers()
