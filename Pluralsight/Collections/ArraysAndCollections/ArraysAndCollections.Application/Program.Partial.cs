@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using ArraysAndCollection.Models;
+using ArraysAndCollection.Models.Shared;
 
 namespace ArraysAndCollections.Application
 {
