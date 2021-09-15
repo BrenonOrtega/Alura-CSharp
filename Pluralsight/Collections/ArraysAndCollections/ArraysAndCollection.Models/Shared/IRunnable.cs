@@ -1,4 +1,4 @@
-namespace ArraysAndCollection.Models
+namespace ArraysAndCollection.Models.Shared
 {
     public interface IExercise
     {

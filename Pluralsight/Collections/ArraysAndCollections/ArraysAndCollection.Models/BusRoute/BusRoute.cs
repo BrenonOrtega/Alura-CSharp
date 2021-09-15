@@ -1,6 +1,7 @@
 ﻿using System;
 
 namespace ArraysAndCollection.Models
+
 {
     public class BusRoute
     {
@@ -18,6 +19,6 @@ namespace ArraysAndCollection.Models
 
         public override string ToString() => $"{Name} - Origin: {Origin} - Destination:{Destination} - Distance:{Distance}";
         public static BusRoute Null => NullObject;
-        private static BusRoute NullObject = new("", "" , "", -1);
+        private static BusRoute NullObject = new("", "", "", -1);
     }
 }
