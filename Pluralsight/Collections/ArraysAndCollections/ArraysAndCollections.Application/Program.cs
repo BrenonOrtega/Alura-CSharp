@@ -8,7 +8,7 @@ namespace ArraysAndCollections.Application
     {
         static void Main(string[] args)
         {
-            DynamicsExercise();
+            //DynamicsExercise();
             RunExercises(args);
         }
 

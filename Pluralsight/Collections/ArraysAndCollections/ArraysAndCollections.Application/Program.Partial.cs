@@ -9,8 +9,10 @@ namespace ArraysAndCollections.Application
     {
         static void RunExercises(string[] args)
         {
-            var assemblies = Array.FindAll(Assembly.GetExecutingAssembly().GetTypes(),
-                type => IsExercise(type) && ShouldExecute(type, args) );
+            var assemblies = Array.FindAll(
+                Assembly.GetExecutingAssembly().GetTypes(),
+                type => IsExercise(type) && ShouldExecute(type, args) 
+            );
 
             BindingFlags ExerciseFlags = BindingFlags.Instance 
                 | BindingFlags.DeclaredOnly 
