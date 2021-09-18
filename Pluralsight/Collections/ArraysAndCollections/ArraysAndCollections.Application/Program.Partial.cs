@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
-using ArraysAndCollection.Models;
-using ArraysAndCollection.Models.Shared;
+using ArraysAndCollections.Models;
+using ArraysAndCollections.Models.Shared;
 
 namespace ArraysAndCollections.Application
 {

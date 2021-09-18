@@ -1,5 +1,5 @@
-using ArraysAndCollection.Models;
-using ArraysAndCollection.Models.Shared;
+using ArraysAndCollections.Models;
+using ArraysAndCollections.Models.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;

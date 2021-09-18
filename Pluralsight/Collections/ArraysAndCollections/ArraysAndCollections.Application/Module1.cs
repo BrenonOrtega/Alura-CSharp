@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using ArraysAndCollection.Models;
-using ArraysAndCollection.Models.Shared;
+using ArraysAndCollections.Models;
+using ArraysAndCollections.Models.Shared;
 
 namespace ArraysAndCollections.Application
 {
@@ -16,7 +16,7 @@ namespace ArraysAndCollections.Application
         {
             CollectionInitializers();
 
-            var routes = repository.Get();
+            var routes = repository.Get().ToArray();
 
             AccessingDataWithIndexers(routes);
 

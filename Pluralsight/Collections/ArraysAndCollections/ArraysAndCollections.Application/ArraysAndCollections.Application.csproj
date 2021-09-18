@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ArraysAndCollection.Models\ArraysAndCollection.Models.csproj" />
+    <ProjectReference Include="..\ArraysAndCollections.Models\ArraysAndCollections.Models.csproj" />
   </ItemGroup>
 
 </Project>
