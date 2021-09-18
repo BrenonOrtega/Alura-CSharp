@@ -1,9 +1,9 @@
-using ArraysAndCollection.Models.Shared;
+using ArraysAndCollections.Models.Shared;
 using PokeApiNet;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArraysAndCollection.Models
+namespace ArraysAndCollections.Models
 {
     public class BusRouteRepository : Repository<BusRoute>, IRepository<BusRoute>
     {
@@ -16,7 +16,7 @@ namespace ArraysAndCollection.Models
         
         public async Task<BusRoute[]> Load(PokeApiClient pokeClient)
         {
-            var kanto = await pokeClient.GetResourceAsync<Region>(1);
+            var kanto = await pokeClient.GetResourceAsync<Region>("kanto");
             var indexedLocations = kanto.Locations.Select((location, index) => new { location.Name, index });
             var reversedLocations = indexedLocations.Reverse();
 
@@ -37,7 +37,6 @@ namespace ArraysAndCollection.Models
                     AddPreviousItem();
 
                 void AddSubSequentItem() => projected[index].AddServedRoute(projected[index + 1]);
-
                 void AddPreviousItem() => projected[index].AddServedRoute(projected[index - 1 ]);
             }
 

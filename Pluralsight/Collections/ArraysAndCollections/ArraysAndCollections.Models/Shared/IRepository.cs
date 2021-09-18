@@ -1,10 +1,11 @@
 using System;
+using System.Collections.Generic;
 
-namespace ArraysAndCollection.Models.Shared
+namespace ArraysAndCollections.Models.Shared
 {
     public interface IRepository<T>
     {
-        T[] Get(Func<T, bool> filter = null);
+        IEnumerable<T> Get(Func<T, bool> filter = null);
         T GetSingle(Func<T, bool> filter = null);
         bool Add(T entity);
         bool Remove(Func<T, bool> filter = null);

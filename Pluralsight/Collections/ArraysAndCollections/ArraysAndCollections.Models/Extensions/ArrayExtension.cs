@@ -1,6 +1,6 @@
 using System;
 
-namespace ArraysAndCollection.Models.Extensions
+namespace ArraysAndCollections.Models.Extensions
 {
     static class ArrayExtension
     {

@@ -1,7 +1,9 @@
 using System;
-using ArraysAndCollection.Models.Extensions;
+using System.Collections.Generic;
+using System.Linq;
+using ArraysAndCollections.Models.Extensions;
 
-namespace ArraysAndCollection.Models.Shared
+namespace ArraysAndCollections.Models.Shared
 {
     public abstract class Repository<T> : IRepository<T>
     {
@@ -18,9 +20,9 @@ namespace ArraysAndCollection.Models.Shared
 
         private bool IsDefault(T t) => Data[^1].Equals(default(T));
 
-        public T[] Get(Func<T, bool> filter = null) => Array.FindAll<T>(Data, filter.ToPredicate());
+        public IEnumerable<T> Get(Func<T, bool> filter = null) => Enumerable.Where(Data, filter ?? GetAll);
 
-        public T GetSingle(Func<T, bool> filter = null) => Array.Find<T>(Data, filter.ToPredicate());
+        public T GetSingle(Func<T, bool> filter = null) => Get(filter).SingleOrDefault();
 
         private bool GetAll(T arg) => true;
 
@@ -40,5 +42,4 @@ namespace ArraysAndCollection.Models.Shared
             return true;
         }
     }
-
 }

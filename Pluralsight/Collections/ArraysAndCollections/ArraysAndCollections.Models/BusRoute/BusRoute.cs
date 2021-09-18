@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ArraysAndCollection.Models
+namespace ArraysAndCollections.Models
 
 {
     public class BusRoute
