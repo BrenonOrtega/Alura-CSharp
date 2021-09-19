@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using ArraysAndCollections.Models;
 using ArraysAndCollections.Models.Shared;
 
-namespace ArraysAndCollections.Application
+namespace ArraysAndCollections.Application.CourseModules
 {
     ///<Summary>
     ///Module One is all about creating, inserting and enumerating data in arrays.

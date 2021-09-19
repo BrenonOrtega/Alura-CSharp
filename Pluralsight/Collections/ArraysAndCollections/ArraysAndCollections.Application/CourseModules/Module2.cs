@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace ArraysAndCollections.Application
+namespace ArraysAndCollections.Application.CourseModules
 {
     ///<Summary>
     ///Module Two is talks about searching data and getting data from arrays.
@@ -19,6 +19,7 @@ namespace ArraysAndCollections.Application
         public void Run(string[] args)
         {
             var routes = repository.Get();
+            if(Array.Exists(args, arg => "-i".Equals(arg) || "--interactive".Equals(arg)))
             WhereDoYouWannaGoInPokemonWorld(routes);
         }
 

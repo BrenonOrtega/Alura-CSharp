@@ -29,7 +29,6 @@ namespace ArraysAndCollections.Application
                     args: new[] { args }
                 ));
         }
-
         static bool ShouldExecute(Type type, string[] args) =>  
             args.Length.Equals(0) || Array.Exists(args, arg => type.Name.Equals(arg));
             

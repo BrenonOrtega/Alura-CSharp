@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ArraysAndCollections.Models;
 using ArraysAndCollections.Models.Shared;
 
-namespace ArraysAndCollections.Application
+namespace ArraysAndCollections.Application.CourseModules
 {
     public class Module3 : IExercise
     {
