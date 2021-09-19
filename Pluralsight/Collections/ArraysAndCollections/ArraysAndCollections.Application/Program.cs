@@ -10,6 +10,7 @@ namespace ArraysAndCollections.Application
         {
             //DynamicsExercise();
             RunExercises(args);
+            Extensions.WriteToReadme();
         }
 
         static void DynamicsExercise()
