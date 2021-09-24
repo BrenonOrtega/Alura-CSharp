@@ -6,12 +6,8 @@ namespace ArraysAndCollections.Application
 {
     partial class Program
     {
-        static void Main(string[] args)
-        {
-            //DynamicsExercise();
+        static void Main(string[] args) =>
             RunExercises(args);
-            Extensions.WriteToReadme();
-        }
 
         static void DynamicsExercise()
         {

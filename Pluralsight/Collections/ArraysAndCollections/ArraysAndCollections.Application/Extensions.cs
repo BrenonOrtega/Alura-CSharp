@@ -20,7 +20,6 @@ namespace ArraysAndCollections.Application
                 modifiers: null
             );
 
-            AppendToReadme(method, args);
             method?.Invoke(null, args);
         }
 
@@ -29,6 +28,7 @@ namespace ArraysAndCollections.Application
             Console.SetOut(_stringWritter);
             method.Invoke(null, args);
             Console.SetOut(new StreamWriter(Console.OpenStandardOutput()));
+            Console.SetIn(new StreamReader(Console.OpenStandardInput()));
         }
 
         public static void WriteToReadme(string path=null)
