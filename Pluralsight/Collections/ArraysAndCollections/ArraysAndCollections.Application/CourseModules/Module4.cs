@@ -8,7 +8,7 @@ namespace ArraysAndCollections.Application.CourseModules
 {
     public class Module4 : IExercise
     {
-        private readonly BusRouteRepository _repo;
+        private readonly IBusRouteRepository _repo;
 
         public Module4() => _repo = new BusRouteRepository();
 
@@ -23,21 +23,16 @@ namespace ArraysAndCollections.Application.CourseModules
 
 
             var nonExistentKey = 10000;
-            this.Log("Now Lets try searching for a value that doesn't exist - key{0}", nonExistentKey);
+            var existentKey = 1;
 
-            try
-            {
-                var value = busRouteDictionary[nonExistentKey];
+            AcessingNonExistentKeysThrowsException(busRouteDictionary, nonExistentKey);
+            ContainsKeyAndTryGetValueMethods(busRouteDictionary, nonExistentKey, existentKey);
+        }
 
-            }
-            catch (Exception e)
-            {
-                this.Log(e);
-                this.Log("As we can see, accessing keys that does not exist throws exceptions for us.");
-            }
-
+        private void ContainsKeyAndTryGetValueMethods(Dictionary<int, BusRoute> busRouteDictionary, int nonExistentKey, int existentKey)
+        {
+            
             this.Log();
-
             this.Log("We have 2 ways to find if data is in dictionary. Using the method ContainsKey or" + 
                 "\nContainsValue for searching for a data, and the lookup for it.");
 
@@ -50,10 +45,23 @@ namespace ArraysAndCollections.Application.CourseModules
             var action = Exists(exists, inexistentRoute);
             action();
 
-            var existentKey = 1;
             exists = busRouteDictionary.TryGetValue(existentKey, out BusRoute existentRoute);
             action = Exists(exists, existentRoute);
             action();
+        }
+
+        private void AcessingNonExistentKeysThrowsException(Dictionary<int, BusRoute> busRouteDictionary, int nonExistentKey)
+        {
+            this.Log("Now Lets try searching for a value that doesn't exist - key{0}", nonExistentKey);
+            try
+            {
+                var value = busRouteDictionary[nonExistentKey];
+            }
+            catch (Exception e)
+            {
+                this.Log(e);
+                this.Log("As we can see, accessing keys that does not exist throws exceptions for us.");
+            }
         }
 
         private Action Exists(bool exists, params object[] args) => exists switch

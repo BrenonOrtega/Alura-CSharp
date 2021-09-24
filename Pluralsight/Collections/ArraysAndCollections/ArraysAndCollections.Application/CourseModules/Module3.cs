@@ -5,9 +5,10 @@ using ArraysAndCollections.Models.Shared;
 
 namespace ArraysAndCollections.Application.CourseModules
 {
+    //Module 3 Is about querying and using Lists.
     public class Module3 : IExercise
     {
-        private readonly BusRouteRepository _repo = new BusRouteRepository();
+        private readonly IBusRouteRepository _repo = new BusRouteRepository();
         public void Run(string[] args)
         {
             var busRouteList = new List<BusRoute>(_repo.Get());

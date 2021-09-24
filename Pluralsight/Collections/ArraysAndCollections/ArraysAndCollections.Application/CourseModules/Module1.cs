@@ -11,7 +11,7 @@ namespace ArraysAndCollections.Application.CourseModules
     ///</Summary>
     public class Module1 : IExercise
     {
-        private readonly IRepository<BusRoute> repository;
+        private readonly IBusRouteRepository repository;
         public void Run(string[] args)
         {
             CollectionInitializers();

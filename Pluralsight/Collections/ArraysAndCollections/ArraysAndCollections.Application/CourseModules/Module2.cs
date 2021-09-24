@@ -1,26 +1,27 @@
 using ArraysAndCollections.Models;
 using ArraysAndCollections.Models.Shared;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-
+using static ArraysAndCollections.Application.Helper;
 namespace ArraysAndCollections.Application.CourseModules
 {
     ///<Summary>
-    ///Module Two is talks about searching data and getting data from arrays.
+    ///Module Two is talks about searching data and getting data from Lists.
     ///</Summary>
     public class Module2 : IExercise
     {
-        private readonly BusRouteRepository repository;
+        private readonly IBusRouteRepository _repo;
 
-        public Module2() => repository = new BusRouteRepository();
+        public Module2() => _repo = new BusRouteRepository();
 
         public void Run(string[] args)
         {
-            var routes = repository.Get();
-            if(Array.Exists(args, arg => "-i".Equals(arg) || "--interactive".Equals(arg)))
-            WhereDoYouWannaGoInPokemonWorld(routes);
+            var routes = _repo.Get();
+            if (Array.Exists(args, arg => "-i".Equals(arg) || "--interactive".Equals(arg)))
+                WhereDoYouWannaGoInPokemonWorld(routes);
         }
 
         private void WhereDoYouWannaGoInPokemonWorld(IEnumerable<BusRoute> routes) =>
@@ -51,7 +52,7 @@ namespace ArraysAndCollections.Application.CourseModules
 
             void SearchResult(string desiredLocation)
             {
-                var result = FindBus(desiredLocation);
+                var result = _repo.FindBus(desiredLocation);
                 var color = result.Equals(BusRoute.Null) ? ConsoleColor.Red : ConsoleColor.Green;
                 var routes = result.Select(route => route.ToString()).ToArray();
 
@@ -61,45 +62,10 @@ namespace ArraysAndCollections.Application.CourseModules
             void AskIfWannaSearchAnotherRoute() =>
                 PrintWithSpacesAndBars(ConsoleColor.Yellow, "WOULD YOU LIKE TO SEE ANOTHER LOCATION?" + exitMessage());
 
-            IEnumerable<BusRoute> FindBus(string location) =>
-                Array.FindAll(busRoutes, route => route.Destination.Contains(location)
-                    || route.Destination.Contains(location)
-                    || route.IsServed(location));
-
             void ChottoMatte(TimeSpan waitTime) => Thread.Sleep(waitTime);
 
-            void PrintWithSpacesAndBars(ConsoleColor color, params object[] messages)
-            {
-                System.Console.WriteLine();
-                PrintWithBars(color, messages);
-                System.Console.WriteLine();
-            }
-
-            void PrintWithBars(ConsoleColor color, params object[] messages)
-            {
-                Console.ForegroundColor = color;
-
-                System.Console.WriteLine("----------------------------------------------------------------");
-
-                PresentData(messages);
-
-                System.Console.WriteLine("----------------------------------------------------------------");
-
-                Console.ForegroundColor = ConsoleColor.White;
-            }
-
-            void PresentData(params object[] messages) => Array.ForEach(messages, message =>
-                {
-                    if (IsEnumerable(message))
-                        foreach(var item in message as IEnumerable<object>)
-                            PresentData(item);
-                    else
-                        System.Console.WriteLine(message);
-                });
-
             string exitMessage() => "(TYPE \"EXIT\" TO QUIT)";
-
-            bool IsEnumerable(object obj) => typeof(Array).IsAssignableFrom(obj?.GetType());
         }
+
     }
 }
