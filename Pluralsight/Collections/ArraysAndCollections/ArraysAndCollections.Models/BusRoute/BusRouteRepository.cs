@@ -1,11 +1,13 @@
 using ArraysAndCollections.Models.Shared;
 using PokeApiNet;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ArraysAndCollections.Models
 {
-    public class BusRouteRepository : Repository<BusRoute>, IRepository<BusRoute>
+    public class BusRouteRepository : BaseRepository<BusRoute>, IBusRouteRepository
     {
         public BusRouteRepository()
         {
@@ -13,6 +15,12 @@ namespace ArraysAndCollections.Models
             var task = Task.Run(async () => Data = await Load(pokeClient));
             task.Wait();
         }
+
+        public IEnumerable<BusRoute> FindBus(string location) =>
+            Array.FindAll(Data, 
+                route => route.Destination.Contains(location)
+                    || route.Destination.Contains(location)
+                    || route.IsServed(location));
         
         public async Task<BusRoute[]> Load(PokeApiClient pokeClient)
         {
