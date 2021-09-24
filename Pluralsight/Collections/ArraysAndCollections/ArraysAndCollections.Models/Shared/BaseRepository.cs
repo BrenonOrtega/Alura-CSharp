@@ -5,7 +5,7 @@ using ArraysAndCollections.Models.Extensions;
 
 namespace ArraysAndCollections.Models.Shared
 {
-    public abstract class Repository<T> : IRepository<T>
+    public abstract class BaseRepository<T> : IRepository<T>
     {
         protected virtual T[] Data { get; set; }
 
