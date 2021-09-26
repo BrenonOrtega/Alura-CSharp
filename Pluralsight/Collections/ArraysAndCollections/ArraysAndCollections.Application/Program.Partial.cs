@@ -9,6 +9,8 @@ namespace ArraysAndCollections.Application
     {
         static void RunExercises(string[] args)
         {
+            Explain();
+
             var assemblies = Array.FindAll(
                 Assembly.GetExecutingAssembly().GetTypes(),
                 type => IsExercise(type) && ShouldExecute(type, args) 
@@ -29,6 +31,21 @@ namespace ArraysAndCollections.Application
                     args: new[] { args }
                 ));
         }
+
+        private static void Explain()
+        {
+            System.Console.ForegroundColor = ConsoleColor.Green;
+            System.Console.WriteLine("-----------------------------------------------------------------");
+            System.Console.WriteLine(
+                "Even though i've used reflection to instantiate a lot of things.\n" +
+                "and practice reflection of course, this warning is important \n\n" +
+                "TO RUN EACH MODULE FROM 1 TO 8 YOU SHOULD RUN THIS APP AND PASS AS ARGUMENT\n" +
+                "THE WORD \"Module\" + THE DESIRED NUMBER LIKE THE FOLLOWING EXAMPLE:\n" +
+                "dotnet run -p ArraysAndCollection.Application Module7");
+            System.Console.WriteLine("-----------------------------------------------------------------");
+            System.Console.ForegroundColor = ConsoleColor.White;
+        }
+
         static bool ShouldExecute(Type type, string[] args) =>  
             args.Length.Equals(0) || Array.Exists(args, arg => type.Name.Equals(arg));
             
