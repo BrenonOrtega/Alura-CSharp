@@ -9,14 +9,15 @@ namespace ArraysAndCollections.Models
 
         public void PassengerArrive(Passenger passenger)
         {
-            System.Console.WriteLine("Bus {0} arrived at {1}", passenger, DateTime.Now);
+            System.Console.WriteLine("passenger {0} arrived at {1}", passenger.Name, DateTime.Now);
             Passengers.Enqueue(passenger);
         }
 
-        public void BusArrive(Bus bus)
+        public void BusArrive(IBus bus)
         {
-            System.Console.WriteLine("Bus {0} arrived at {1}", bus, DateTime.Now);
-            while(Passengers.Count <= Bus.MAXIMUM_CAPACITY && Passengers.Count > 0)
+            System.Console.WriteLine("Bus arrived at stop at {0}", DateTime.Now);
+            
+            while(bus.CanBoard)
                 bus.Load(Passengers.Dequeue());
         }
     }
