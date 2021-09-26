@@ -1,26 +1,19 @@
+using System.Collections;
 using System.Collections.Generic;
 
 namespace ArraysAndCollections.Models
 {
-    public class Bus
+    public class Bus : BaseBus
     {
-        public const int MAXIMUM_CAPACITY = 6;
-        public Stack<Passenger> Passengers { get; set; } = new Stack<Passenger>();
-
-        public void Load(Passenger passenger)
-        {
-            if (Passengers.Count < MAXIMUM_CAPACITY)
-            {
-                Passengers.Push(passenger);
-                System.Console.WriteLine("Passenger {0} just boarded", passenger.Name);
-            }
-        }
+        private Stack<Passenger> _passengers = new Stack<Passenger>();
+        protected override ICollection Passengers { get => _passengers; }
+        protected override void Add(Passenger passenger) => _passengers.Push(passenger);
 
         public void ArriveAtTerminus()
         {
-            while (Passengers.Count > 0)
+            while (_passengers.Count > 0)
             {
-                var p = Passengers.Pop();
+                var p = _passengers.Pop();
                 System.Console.WriteLine("Passenger {0} just landed.", p.Name);
             }
         }
