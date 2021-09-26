@@ -5,7 +5,9 @@ using ArraysAndCollections.Models.Shared;
 
 namespace ArraysAndCollections.Application.CourseModules
 {
-    //Module 3 Is about querying and using Lists.
+    ///<Summary>
+    ///Module 3 Is about querying data using Lists, how extensible and easy to use they are.
+    ///</Summary>
     public class Module3 : IExercise
     {
         private readonly IBusRouteRepository _repo = new BusRouteRepository();

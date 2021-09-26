@@ -9,7 +9,8 @@ using static ArraysAndCollections.Application.Helper;
 namespace ArraysAndCollections.Application.CourseModules
 {
     ///<Summary>
-    ///Module 5 is all about HashSet<T>.
+    ///Module 5 is all about <see cref="HashSet{T}"/> and why we should use it whenever 
+    ///operating on whole collections, joining, intercepting sets and etc.
     ///</Summary>
     public class Module5 : IExercise
     {

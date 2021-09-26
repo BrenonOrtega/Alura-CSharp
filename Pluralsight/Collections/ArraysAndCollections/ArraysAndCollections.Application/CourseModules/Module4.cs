@@ -6,6 +6,10 @@ using System;
 
 namespace ArraysAndCollections.Application.CourseModules
 {
+    ///<Summary>
+    ///<see cref="Module4"/> we learned about <seealso cref="Dictionary{T}"/> 
+    ///And why we should prefer it whenever we want to efficiently query and find data.
+    ///</Summary>
     public class Module4 : IExercise
     {
         private readonly IBusRouteRepository _repo;
