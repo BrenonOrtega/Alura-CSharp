@@ -7,13 +7,12 @@ namespace ArraysAndCollections.Models
 {
     public class PassengerRepository : IRepository<Passenger>
     {
-        private ICollection<Passenger> Passengers { get; set; } = new HashSet<Passenger>(Generate(5));
+        private ICollection<Passenger> Passengers { get; set; } = new HashSet<Passenger>(Generate(Bus.MAXIMUM_CAPACITY));
 
         private static IEnumerable<Passenger> Generate(int quantity)
         {
-
-            for(int i=0; i<= quantity; i++)
-                yield return new Passenger($"Passenger {i}", $"route { i*i }");
+            for (int i = 0; i <= quantity; i++)
+                yield return new Passenger($"Passenger {i}", $"{ (i % 2 == 0 ? "viridian" : "celadon") }");
         }
 
         public bool Add(Passenger entity)
