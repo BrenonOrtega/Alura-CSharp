@@ -14,8 +14,17 @@ namespace ArraysAndCollections.Application.CourseModules
         public void Run(string[] args)
         {
             var passengers = _repo.Get();
+            var enumerator = passengers.GetEnumerator();
 
+            var bus = new Bus();
+            var stop = new BusStop();
 
+            while(enumerator.MoveNext())
+                stop.PassengerArrive(enumerator.Current);
+
+            stop.BusArrive(bus);
+
+            bus.ArriveAtTerminus();
         }
     }
 }

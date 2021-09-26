@@ -25,7 +25,11 @@ namespace ArraysAndCollections.Models
 
         public bool Add(BusTime entity)
         {
-            throw new NotImplementedException();
+            if (entity is null)
+                return false;
+
+            _busTimes.Add(entity);
+            return true;
         }
 
         public IEnumerable<BusTime> Get(Func<BusTime, bool> filter = null)
@@ -33,7 +37,7 @@ namespace ArraysAndCollections.Models
             filter ??= _ => true;
             return _busTimes.Where(filter);
         }
-        
+
         public BusTime GetSingle(Func<BusTime, bool> filter = null)
         {
             return Get().SingleOrDefault();
@@ -41,7 +45,15 @@ namespace ArraysAndCollections.Models
 
         public bool Remove(Func<BusTime, bool> filter = null)
         {
-            throw new NotImplementedException();
+            try{
+                _busTimes =  _busTimes.Except(_busTimes.Where(filter)).ToList();
+                return true;
+            }
+            catch
+            {
+                System.Console.WriteLine("error removing elements");
+                return false;
+            }
         }
 
         public bool Update(BusTime entity, Func<BusTime, bool> filter = null)
