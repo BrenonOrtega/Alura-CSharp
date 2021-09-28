@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  redis:
+    image: redis
+    command: redis-server --requirepass Redis2021!
+    networks:
+      - event-handlers-demo
+    ports:
+      - "6379:6379"
+    deploy:
+      resources:
+        limits:
+            memory: 1000M
+
+networks:
+    event-handlers-demo:
