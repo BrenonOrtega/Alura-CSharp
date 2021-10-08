@@ -1,11 +1,8 @@
 using System;
-using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Caching.Redis;
 using RedisEventSourcing.Contracts.Handlers;
 using RedisEventSourcing.Domain.Entities.Shared;
 
@@ -13,22 +10,23 @@ namespace RedisEventSourcing.Events.Handlers
 {
     public class DataChangedEventHandler<T> : IDataChangedEventHandler<T> where T : IEntity<string>
     {
+        public delegate Task PersistedData(T data);
+
         private readonly IDistributedCache cache;
 
         public DataChangedEventHandler(IDistributedCache cache)
         {
-            this.cache = cache ?? throw new ArgumentNullException(nameof(cache));
+            this.cache = cache ?? throw new ArgumentNullException();
         }
-        public event Action<T> DataChanged;
 
-        public Task HandleAsync(object sender, T data)
+        public event Func<T, Task> DataChanged;
+
+        public async Task HandleAsync(object sender, T data)
         {
-            DataChanged(data);
-
-            return cache.SetAsync(data.Id, 
-                Encoding.UTF8.GetBytes(JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true })),
-                new DistributedCacheEntryOptions() { AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(3) }
-            );
+            await DataChanged(data);
+                
+            var serializedData = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+            await cache.SetStringAsync(data.Id, serializedData);
         }
     }
 }
