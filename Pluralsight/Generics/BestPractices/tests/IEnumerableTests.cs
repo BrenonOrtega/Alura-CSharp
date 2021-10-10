@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Reactive.Linq;
 using Xunit;
+using FluentAssertions;
+using System.Collections;
 
 namespace BestPractices.tests
 {
@@ -18,7 +19,6 @@ namespace BestPractices.tests
             var actual = enumerator.Current;
             do
             {
-
                 var next = enumerator.MoveNext() ? enumerator.Current : null;
                 System.Console.WriteLine(actual);
                 actual = next;
@@ -33,7 +33,8 @@ namespace BestPractices.tests
             await foreach(var i in expected)
                 System.Console.WriteLine(i);
 
-            Assert.NotEmpty(expected);
+            expected.Should().NotBeNull();
+            expected.Should().BeAssignableTo<IEnumerable>();
         }
 
         public async IAsyncEnumerable<string> GetStringAsync()
