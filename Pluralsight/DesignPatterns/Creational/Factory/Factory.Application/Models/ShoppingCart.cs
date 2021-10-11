@@ -9,20 +9,21 @@ namespace Factory.Application.Models
     public class ShoppingCart
     {
         private readonly ShippingProvider _shippingProvider;
+        private readonly ShippingProviderFactory _shippingProviderFactory;
 
         public double Total { get; private set; }
         public Order Order { get; set; }
-        public ShoppingCart(Order order, ShippingProvider shippingProvider)
+        public ShoppingCart(Order order, ShippingProviderFactory shippingProviderFactory)
         {
             this.Order = order;
-            _shippingProvider = shippingProvider;
+            _shippingProviderFactory = shippingProviderFactory;
+            _shippingProvider = _shippingProviderFactory.GetShippingProvider(Order.OriginCountry);
         }
 
         public string Finalize()
         {
-            var shippingProvider = ShippingProviderFactory.Create(Order.OriginCountry);
-            Total = Order.SubTotal + shippingProvider.Fee;
-            return shippingProvider.CreateLabel(Order);
+            Total = Order.SubTotal + _shippingProvider.Fee;
+            return _shippingProvider.CreateLabel(Order);
         }
 
         private string GetFormattedTotal(double value) => Total.ToString("C2", _shippingProvider.Culture);

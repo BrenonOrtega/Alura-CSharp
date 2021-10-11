@@ -3,13 +3,17 @@ using Factory.Application.Providers;
 
 namespace Factory.Application.Factories
 {
-    public class ShippingProviderFactory
+    public abstract class ShippingProviderFactory
     {
-        public static ShippingProvider Create(string country) => country?.ToLower() switch 
+        public ShippingProvider GetShippingProvider(string country)
         {
-            "brazil" => new CorreiosProvider(),
-            "canada" => new CanadaShippingProvider(),
-            _ => throw new NotImplementedException()
-        };
+            var provider = CreateShippingProvider(country);
+            provider.IsCalledFromGetFactoryMethod = true;
+            return provider;
+        }
+
+        public abstract ShippingProvider CreateShippingProvider(string country);
     }
+
+    
 }

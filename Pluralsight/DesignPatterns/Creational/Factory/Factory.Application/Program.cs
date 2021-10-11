@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Factory.Application.Models;
 using Factory.Application.Factories;
@@ -37,8 +35,8 @@ namespace Factory.Application
 
         private static void ShowAndFinalizeCart(Order order)
         {
-            var provider = ShippingProviderFactory.Create(order.OriginCountry);
-            var shoppingCart = new ShoppingCart(order, provider);
+            var factory = new GlobalShippingProviderFactory();
+            var shoppingCart = new ShoppingCart(order, factory);
 
             var label = shoppingCart.Finalize();
 

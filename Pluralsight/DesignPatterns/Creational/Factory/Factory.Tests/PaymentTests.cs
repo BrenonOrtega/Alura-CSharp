@@ -1,5 +1,5 @@
 using System;
-using Factory.App.Models;
+using Factory.Application.Models;
 using Xunit;
 
 namespace Factory.Tests

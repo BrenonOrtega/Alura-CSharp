@@ -15,5 +15,7 @@ namespace Factory.Application.Providers
 
         public string CreateLabel<T>(T labable) => ProviderName + labable?.GetHashCode();
 
+        public bool IsCalledFromGetFactoryMethod { get; set; }
+
     }
 }
