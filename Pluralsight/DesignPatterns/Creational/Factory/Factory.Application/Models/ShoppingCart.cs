@@ -2,7 +2,8 @@ using System;
 using System.Linq;
 using System.Text.Json;
 using Factory.Application.Factories;
-using Factory.Application.Providers;
+using Factory.Application.Factories.ShippingProviders;
+using Factory.Application.Providers.ShippingProviders;
 
 namespace Factory.Application.Models
 {

@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace Factory.Application.Providers
+namespace Factory.Application.Providers.ShippingProviders
 {
     public class CorreiosProvider : ShippingProvider
     {

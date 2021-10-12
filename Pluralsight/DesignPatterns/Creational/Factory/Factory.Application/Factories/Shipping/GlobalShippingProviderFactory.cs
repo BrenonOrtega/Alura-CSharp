@@ -1,13 +1,12 @@
-using System;
-using Factory.Application.Providers;
+using Factory.Application.Providers.ShippingProviders;
 
-namespace Factory.Application.Factories
+namespace Factory.Application.Factories.ShippingProviders
 {
     public class GlobalShippingProviderFactory : ShippingProviderFactory
     {
         public override ShippingProvider CreateShippingProvider(string country)
         {
-            return new GlobalVipShippingProvider();
+            return new GlobalShippingProvider();
         }
     }
 }

@@ -1,7 +1,7 @@
-using System;
-using Factory.Application.Providers;
+using Factory.Application.Providers.ShippingProviders;
 
-namespace Factory.Application.Factories
+
+namespace Factory.Application.Factories.ShippingProviders
 {
     public abstract class ShippingProviderFactory
     {

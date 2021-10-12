@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Factory.Application.Models;
-using Factory.Application.Factories;
+using Factory.Application.Factories.ShippingProviders;
 
 namespace Factory.Application
 {
@@ -11,7 +11,7 @@ namespace Factory.Application
         {
             System.Console.WriteLine("hello world");
 
-            var orderItems = new HashSet<(double, int, string)> 
+            var orderItems = new HashSet<(double, int, string)>
             {
                 (1000, 1, "carro"),
                 (500, 2, "celular"),
@@ -19,14 +19,14 @@ namespace Factory.Application
             };
 
             var order = new Order("Brazil", orderItems);
-            
+
             var otherOrderItems = orderItems.Union(new HashSet<(double, int, string)>(3)
             {
                 (250, 3, "violino"),
                 (100, 4, "camisa azul chavosa da nike"),
                 (30, 2, "kilo do frango caro demais sehloko")
             });
-            
+
             var otherOrder = new Order("Canada", otherOrderItems);
 
             ShowAndFinalizeCart(order);

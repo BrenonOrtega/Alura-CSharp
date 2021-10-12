@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Factory.Application.Factories;
+using Factory.Application.Factories.ShippingProviders;
 using Factory.Application.Models;
-using Factory.Application.Providers;
+using Factory.Application.Providers.ShippingProviders;
 using Xunit;
 
 namespace Factory.Tests
