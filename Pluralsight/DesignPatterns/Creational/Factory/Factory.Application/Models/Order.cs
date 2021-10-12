@@ -9,10 +9,10 @@ namespace Factory.Application.Models
         public Order(string originCountry, IEnumerable<(double price, int quantity, string item)> items)
         {
             this.OriginCountry = originCountry;
-            Items = items;
+            Items = items.ToHashSet();
         }
 
         public double SubTotal => Items.Sum(x => x.price * x.quantity);
-        public IEnumerable<(double price, int quantity, string item)> Items { get; set; }
+        public HashSet<(double price, int quantity, string item)> Items { get; set; }
     }
 }

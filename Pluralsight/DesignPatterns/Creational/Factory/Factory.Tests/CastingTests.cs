@@ -1,6 +1,6 @@
 using System;
-using Factory.Application.Factories.ShippingProviders;
-using Factory.Application.Providers.ShippingProviders;
+using Factory.Application.Factories.Shipping;
+using Factory.Application.Providers;
 using Xunit;
 
 namespace Factory.Tests
@@ -19,7 +19,6 @@ namespace Factory.Tests
                 Assert.Same(provider, castProvider);
                 Assert.IsAssignableFrom<ShippingProvider>(castProvider);
             }
-
         }
     }
 }

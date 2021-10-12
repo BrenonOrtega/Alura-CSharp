@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Factory.Application.Models;
-using Factory.Application.Factories.ShippingProviders;
+using Factory.Application.Factories.CountryFactory;
 
 namespace Factory.Application
 {
@@ -28,15 +28,16 @@ namespace Factory.Application
             });
 
             var otherOrder = new Order("Canada", otherOrderItems);
+            var countryOrderFactory = new BrasilOrderFactory();
 
-            ShowAndFinalizeCart(order);
-            ShowAndFinalizeCart(otherOrder);
+
+            ShowAndFinalizeCart(order, countryOrderFactory);
+            ShowAndFinalizeCart(otherOrder, countryOrderFactory);
         }
 
-        private static void ShowAndFinalizeCart(Order order)
+        private static void ShowAndFinalizeCart(Order order, ICountryOrderFactory countryOrderFactory)
         {
-            var factory = new GlobalShippingProviderFactory();
-            var shoppingCart = new ShoppingCart(order, factory);
+            var shoppingCart = new ShoppingCart(order, countryOrderFactory);
 
             var label = shoppingCart.Finalize();
 

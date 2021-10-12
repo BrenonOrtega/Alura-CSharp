@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Factory.Application.Providers.ShippingProviders
+namespace Factory.Application.Providers
 {
     public abstract class ShippingProvider
     {

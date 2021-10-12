@@ -1,6 +1,6 @@
-using Factory.Application.Providers.ShippingProviders;
+using Factory.Application.Providers;
 
-namespace Factory.Application.Factories.ShippingProviders
+namespace Factory.Application.Factories.Shipping
 {
     public class GlobalShippingProviderFactory : ShippingProviderFactory
     {
