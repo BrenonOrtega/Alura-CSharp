@@ -1,6 +1,30 @@
 version: "3.9"
 services:
-  dynamo:
+  dynamodb:
     image: "amazon/dynamodb-local"
     ports:
       - "8000:8000"
+    networks:
+      - dynamodb
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 700M
+    
+  dynamodb-client:
+    image: "yamitzky/dynamodb-gui"
+    ports:
+     - "8001:8001"
+    environment:
+      - DYNAMO_ENDPOINT="localhost:8001"
+    networks:
+      - dynamodb
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 100M
+
+networks:
+  dynamodb:
