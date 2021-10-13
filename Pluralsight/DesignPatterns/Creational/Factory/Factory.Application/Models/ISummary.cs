@@ -34,7 +34,7 @@ namespace Factory.Application.Models
     {
         public CsvSummary(Order order) : base(order) {  }
 
-        public override string GetSummary() => "csv,s,2,q";
+        public override string GetSummary() => "Um, CSV, Fedido, qualquer";
     }
 
     public class FileSummary : SummaryBase

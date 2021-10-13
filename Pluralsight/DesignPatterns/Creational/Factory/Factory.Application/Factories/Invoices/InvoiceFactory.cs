@@ -2,7 +2,7 @@ using Factory.Application.Models;
 
 namespace Factory.Application.Factories.Invoices
 {
-    public abstract class InvoiceFactory
+    public abstract class InvoiceFactory : IInvoiceFactory
     {
         public IInvoice GetInvoice(Order order)
         {

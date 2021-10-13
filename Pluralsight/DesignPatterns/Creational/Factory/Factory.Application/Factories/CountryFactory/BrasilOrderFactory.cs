@@ -1,4 +1,5 @@
 using System.Linq;
+using Factory.Application.Factories.Invoices;
 using Factory.Application.Models;
 using Factory.Application.Providers;
 
@@ -10,7 +11,9 @@ namespace Factory.Application.Factories.CountryFactory
 
         public IInvoice GetInvoice(Order order)
         {
-            throw new System.NotImplementedException();
+            var factory = new EcommerceInvoiceFactory();
+            var invoice = factory.GetInvoice(order);
+            return invoice;
         }
 
         public ShippingProvider GetShippingProvider(Order order)

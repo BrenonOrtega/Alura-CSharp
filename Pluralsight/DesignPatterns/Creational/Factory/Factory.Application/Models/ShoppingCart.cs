@@ -27,14 +27,16 @@ namespace Factory.Application.Models
             return shippingProvider.CreateLabel(Order);
         }
 
+        public IInvoice GetInvoice() => _countryOrderFactory.GetInvoice(Order);
+
         private string GetFormattedTotal(double value)
         {
             var shippingProvider = _countryOrderFactory.GetShippingProvider(Order);
             return Total.ToString("C2", shippingProvider.Culture);
-        } 
+        }
         public string GetFormattedTotal() => GetFormattedTotal(Total);
 
-        public string OrderSummary => 
+        public string OrderSummary =>
             _countryOrderFactory.GetSummary(Order).Stringify(GetFormattedTotal());
     }
 }
