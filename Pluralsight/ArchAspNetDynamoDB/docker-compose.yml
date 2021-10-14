@@ -9,7 +9,7 @@ services:
     hostname: dynamodb-local
     container_name: dynamodb-local
     ports:
-      - "8042:8000"
+      - "800:8000"
 
     networks:
       - local-dynamo-network
@@ -18,24 +18,3 @@ services:
         limits:
           cpus: '2'
           memory: 1000M  
-    
-  dynamodb-client:
-    image: "aaronshaf/dynamodb-admin"
-    container_name: dynamodb-local-client
-    ports:
-     - "10000:8001"
-    environment:
-      - DYNAMO_ENDPOINT="http://localhost:8000"
-      - AWS_ACCESS_KEY_ID="ANY-RANDOM-ID-HERE-LOCAL-DYNAMO-DOES-NOT-CARE"
-      - AWS_SECRET_ACCESS_KEY="ANY-RANDOM-KEY-HERE-LOCAL-DYNAMO-DOES-NOT-CARE"
-    networks:
-      - local-dynamo-network
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 300M
-    links:
-      - dynamodb
-    depends_on:
-      - dynamodb
