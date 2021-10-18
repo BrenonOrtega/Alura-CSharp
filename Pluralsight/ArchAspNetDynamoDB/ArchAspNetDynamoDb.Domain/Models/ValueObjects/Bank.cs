@@ -1,4 +1,4 @@
-namespace ArchAspNetDynamoDb.Api.Models
+namespace ArchAspNetDynamoDb.Domain.Models.ValueObjects
 {
     public class Bank
     {

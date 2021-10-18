@@ -1,4 +1,4 @@
-namespace ArchAspNetDynamoDb.Api.Models
+namespace ArchAspNetDynamoDb.Infra.DynamoDb.Models
 {
     public class Person
     {

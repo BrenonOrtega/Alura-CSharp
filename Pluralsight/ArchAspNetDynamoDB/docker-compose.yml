@@ -9,8 +9,10 @@ services:
     hostname: dynamodb-local
     container_name: dynamodb-local
     ports:
-      - "800:8000"
-
+      - "8000:8000"
+    environment:
+      AWS_ACCESS_KEY_ID: any-dummy-aws-access-key-id
+      AWS_SECRET_ACCESS_KEY: any-dummy-aws-secret-access-key
     networks:
       - local-dynamo-network
     deploy:
