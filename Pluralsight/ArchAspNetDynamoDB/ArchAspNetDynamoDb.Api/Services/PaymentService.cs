@@ -16,18 +16,17 @@ namespace ArchAspNetDynamoDb.Api.Services
         }
 
 
-        public Task<IEnumerable<PaymentRefund>> GetAllPayments()
+        public async Task<IEnumerable<PaymentRefund>> GetAllPayments()
         {
-            return _repository.GetAll();
+            var paymentRefunds = await _repository.GetAllAsync("");
+
+            throw new NotImplementedException();
         }
-        
 
-        public Task<PaymentRefund> GetPayment<T>(params T[] keyFormation)
+
+        public Task<PaymentRefund> GetPayment<T>()
         {
-            if(keyFormation.Length != 2)
-                throw new ArgumentException("ARGUMENTS DEMAIS");
-
-            return _repository.FindByHashKey(keyFormation[0], keyFormation[1]);
+            throw new NotImplementedException();
         }
     }
 }

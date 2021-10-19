@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.Model;
 using ArchAspNetDynamoDb.Infra.DynamoDb.Models;
 using Extensions.Hosting.AsyncInitialization;
 
@@ -26,11 +28,22 @@ namespace ArchAspNetDynamoDb.Infra.DynamoDb.Initializers
 
             foreach (var entity in entities)
             {
-                var dynamoEntity = Activator.CreateInstance(entity) as IDynamoEntity;
-
-                if (tableRequest.TableNames.Contains(dynamoEntity.TableName) is false)
-                    await _dynamoDb.CreateTableAsync(dynamoEntity.TableName, dynamoEntity.KeySchemaElements, dynamoEntity.AttributeDefinitions, dynamoEntity.ProvisionedThroughput);
-
+                var tableName = (string)entity.GetProperty(nameof(IDynamoEntity.TableName)).GetValue(null, null);
+                var keySchema = (List<KeySchemaElement>)entity.GetProperty(nameof(IDynamoEntity.KeySchemaElements)).GetValue(null, null);
+                var attributeDefinitions = (List<AttributeDefinition>)entity.GetProperty(nameof(IDynamoEntity.AttributeDefinitions)).GetValue(null, null);
+                var localSecondaryIndexes = (List<LocalSecondaryIndex>)entity.GetProperty(nameof(IDynamoEntity.SecondaryIndexes)).GetValue(null, null);
+                var provisionedThroughput = (ProvisionedThroughput)entity.GetProperty(nameof(IDynamoEntity.ProvisionedThroughput)).GetValue(null, null);
+                
+                if (tableRequest.TableNames.Contains(tableName) is false)
+                    await _dynamoDb.CreateTableAsync(
+                        new CreateTableRequest()
+                        {
+                            TableName = tableName,
+                            KeySchema = keySchema,
+                            AttributeDefinitions =attributeDefinitions,
+                            LocalSecondaryIndexes = localSecondaryIndexes,
+                            ProvisionedThroughput = provisionedThroughput,
+                    });
             }
         }
     }

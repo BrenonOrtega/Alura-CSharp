@@ -8,6 +8,6 @@ namespace ArchAspNetDynamoDb.Domain.Services
     public interface IPaymentRefundService
     {
         Task<IEnumerable<PaymentRefund>> GetAllPayments();
-        Task<PaymentRefund> GetPayment<T>(params T[] keyFormation);
+        Task<PaymentRefund> GetPayment<T>();
     }
 }

@@ -1,5 +1,6 @@
 using Amazon.DynamoDBv2.DataModel;
 using Amazon.DynamoDBv2.DocumentModel;
+using Amazon.DynamoDBv2.Model;
 using ArchAspNetDynamoDb.Domain.Models.Entities;
 using ArchAspNetDynamoDb.Domain.Repositories;
 using ArchAspNetDynamoDb.Infra.DynamoDb;
@@ -24,24 +25,18 @@ namespace ArchAspNetDynamoDb.Infra.Repositories
             _context = context ?? throw new System.ArgumentNullException(nameof(context));
         }
 
-        public Task<PaymentRefund> FindByHashKey<TPartitionKey, TSortKey>(TPartitionKey partitionkey, TSortKey sortKey)
+        public Task<IEnumerable<PaymentRefund>> GetByDateAsync(DateTime date)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<PaymentRefund>> GetAll()
+        public async Task<IEnumerable<PaymentRefund>> GetAllAsync(string key)
         {
-            Task<List<DynamoPaymentRefund>> paymentsTask = GetPaymentsAsync();
-            var payments = await paymentsTask;
+            var query = _context.QueryAsync<PaymentRefund>(key);
+
+            var payments = await query.GetRemainingAsync();
 
             return _mapper.Map<IEnumerable<PaymentRefund>>(payments);
-        }
-
-        public async Task<List<DynamoPaymentRefund>> GetPaymentsAsync()
-        {
-            var query = _context.QueryAsync<DynamoPaymentRefund>("2021-10-18", QueryOperator.BeginsWith, new List<object> { DateTime.Today.ToString() });
-
-            return await query.GetRemainingAsync();
         }
 
         public Task SaveAsync(PaymentRefund paymentRefund)

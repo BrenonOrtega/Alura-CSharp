@@ -5,10 +5,11 @@ namespace ArchAspNetDynamoDb.Infra.DynamoDb.Models
 {
     public interface IDynamoEntity
     {
-        string TableName { get; }
-        List<KeySchemaElement> KeySchemaElements { get; }
-        List<AttributeDefinition> AttributeDefinitions { get; }
-        ProvisionedThroughput ProvisionedThroughput { get; }
+        static string  TableName { get; }
+        static List<KeySchemaElement> KeySchemaElements { get; }
+        static List<AttributeDefinition> AttributeDefinitions { get; }
+        static List<LocalSecondaryIndex> SecondaryIndexes { get; }
+        static ProvisionedThroughput ProvisionedThroughput { get; }
 
     }
 }

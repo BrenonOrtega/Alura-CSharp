@@ -30,7 +30,7 @@ namespace ArchAspNetDynamoDb.Api
             {
                 if ("Read".ToLower().Equals(Operation.ToLower()))
                 {
-                    var payments = await repo.GetAll();
+                    var payments = await repo.GetAllAsync(DateTime.Today.ToString());
 
                     foreach (var payment in payments)
                         logger.LogInformation("{paymentNumber} queried: {payment}", i, payment);
