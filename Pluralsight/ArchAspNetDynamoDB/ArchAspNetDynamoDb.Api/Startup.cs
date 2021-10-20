@@ -32,7 +32,7 @@ namespace ArchAspNetDynamoDb.Api
             services.AddTransient<IPaymentRefundService, PaymentRefundService>();
 
             services.AddDynamoDb(Configuration)
-                .ConfigureRepositories();
+                .AddRepositories();
 
                 services.AddHostedService<Worker>();
             

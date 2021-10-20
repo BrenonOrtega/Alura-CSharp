@@ -34,14 +34,15 @@ namespace ArchAspNetDynamoDb.Infra.DynamoDb.Models
         {
             new AttributeDefinition(nameof(PaymentId), ScalarAttributeType.S),
             new AttributeDefinition(nameof(PaidOutDate), ScalarAttributeType.S),
-            new AttributeDefinition(nameof(Payer) + nameof(Person.Document), ScalarAttributeType.S)
+            new AttributeDefinition(nameof(Payer) + nameof(Person.Document), ScalarAttributeType.S),
+
         };
 
         public static List<LocalSecondaryIndex> SecondaryIndexes => new List<LocalSecondaryIndex>
         {
             new LocalSecondaryIndex()
             {
-                IndexName = $"GET_BY_{ nameof(Payer).ToUpper() }_{ nameof(Person.Document).ToUpper() }",
+                IndexName = $"GET_BY_{ nameof(PaidOutDate).ToUpper() }_AND_{ nameof(Person.Document).ToUpper() }",
                 KeySchema = new List<KeySchemaElement>()
                 {
                     new KeySchemaElement(nameof(PaidOutDate), KeyType.HASH),
@@ -51,10 +52,28 @@ namespace ArchAspNetDynamoDb.Infra.DynamoDb.Models
                 {
                     ProjectionType = ProjectionType.ALL
                 }
+            },
+            
+        };
+
+        public static List<GlobalSecondaryIndex> GlobalSecondaryIndexes => new List<GlobalSecondaryIndex>
+        {
+            new GlobalSecondaryIndex()
+            {
+                IndexName = $"GET_BY_{ nameof(PaidOutDate).ToUpper() }",
+                KeySchema = new List<KeySchemaElement>()
+                {
+                    new KeySchemaElement(nameof(PaidOutDate), KeyType.HASH),
+                },
+                Projection = new Projection()
+                {
+                    ProjectionType = ProjectionType.ALL
+                },
+                ProvisionedThroughput = ProvisionedThroughput
             }
         };
 
-0        public static ProvisionedThroughput ProvisionedThroughput => new ProvisionedThroughput()
+        public static ProvisionedThroughput ProvisionedThroughput => new ProvisionedThroughput()
         {
             ReadCapacityUnits = 5,
             WriteCapacityUnits = 2

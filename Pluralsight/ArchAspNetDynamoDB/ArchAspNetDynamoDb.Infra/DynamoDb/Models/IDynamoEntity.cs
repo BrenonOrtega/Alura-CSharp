@@ -9,6 +9,7 @@ namespace ArchAspNetDynamoDb.Infra.DynamoDb.Models
         static List<KeySchemaElement> KeySchemaElements { get; }
         static List<AttributeDefinition> AttributeDefinitions { get; }
         static List<LocalSecondaryIndex> SecondaryIndexes { get; }
+        static List<GlobalSecondaryIndex> GlobalSecondaryIndexes { get; }
         static ProvisionedThroughput ProvisionedThroughput { get; }
 
     }

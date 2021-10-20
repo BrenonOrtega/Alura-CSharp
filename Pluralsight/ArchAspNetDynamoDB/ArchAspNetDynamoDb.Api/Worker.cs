@@ -30,7 +30,7 @@ namespace ArchAspNetDynamoDb.Api
             {
                 if ("Read".ToLower().Equals(Operation.ToLower()))
                 {
-                    var payments = await repo.GetAllAsync(DateTime.Today.ToString());
+                    var payments = await repo.GetByDateAsync(new DateTime(2021, 10, 18));
 
                     foreach (var payment in payments)
                         logger.LogInformation("{paymentNumber} queried: {payment}", i, payment);
@@ -41,6 +41,7 @@ namespace ArchAspNetDynamoDb.Api
                     var paymentRefund = new PaymentRefund() { PaidOutDate = DateTime.Now, PaymentId = Guid.NewGuid().ToString(), Amount = i * 10, Payer = new() { Name = "payer " + i, Document = new string('3', i) } };
                     await repo.SaveAsync(paymentRefund);
                 }
+
                 i++;
                 await Task.Delay(2000);
 

@@ -32,6 +32,7 @@ namespace ArchAspNetDynamoDb.Infra.DynamoDb.Initializers
                 var keySchema = (List<KeySchemaElement>)entity.GetProperty(nameof(IDynamoEntity.KeySchemaElements)).GetValue(null, null);
                 var attributeDefinitions = (List<AttributeDefinition>)entity.GetProperty(nameof(IDynamoEntity.AttributeDefinitions)).GetValue(null, null);
                 var localSecondaryIndexes = (List<LocalSecondaryIndex>)entity.GetProperty(nameof(IDynamoEntity.SecondaryIndexes)).GetValue(null, null);
+                var globalSecondaryIndexes = (List<GlobalSecondaryIndex>)entity.GetProperty(nameof(IDynamoEntity.GlobalSecondaryIndexes)).GetValue(null, null);
                 var provisionedThroughput = (ProvisionedThroughput)entity.GetProperty(nameof(IDynamoEntity.ProvisionedThroughput)).GetValue(null, null);
                 
                 if (tableRequest.TableNames.Contains(tableName) is false)
@@ -43,6 +44,7 @@ namespace ArchAspNetDynamoDb.Infra.DynamoDb.Initializers
                             AttributeDefinitions =attributeDefinitions,
                             LocalSecondaryIndexes = localSecondaryIndexes,
                             ProvisionedThroughput = provisionedThroughput,
+                            GlobalSecondaryIndexes = globalSecondaryIndexes,
                     });
             }
         }

@@ -33,7 +33,7 @@ namespace ArchAspNetDynamoDb.Infra.Extensions
             return services;
         }
 
-        public static IServiceCollection ConfigureRepositories(this IServiceCollection services) =>
+        public static IServiceCollection AddRepositories(this IServiceCollection services) =>
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies())
                 .AddTransient<IRepository<PaymentRefund>, PaymentRefundRepository>()
             ;
