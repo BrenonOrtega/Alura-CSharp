@@ -23,7 +23,7 @@ namespace Querying.DynamoDB
             var key = config["secret-key"];
             var id = config["secret-id"];
 
-            var credentials = new BasicAWSCredentials(key, id);
+            var credentials = new BasicAWSCredentials(id, key);
 
             var dynamoDb = new AmazonDynamoDBClient(credentials, new AmazonDynamoDBConfig() { ServiceURL = "http://localhost:8000" });
             await QueryingUsingLowLevelApi(dynamoDb);

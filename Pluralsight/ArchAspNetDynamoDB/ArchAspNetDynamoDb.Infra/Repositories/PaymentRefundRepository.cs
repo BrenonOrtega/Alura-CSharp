@@ -23,7 +23,7 @@ namespace ArchAspNetDynamoDb.Infra.Repositories
         private readonly IDynamoDBContext _context;
         public ILogger<PaymentRefundRepository> Logger { get; }
 
-        public PaymentRefundRepository(IMapper mapper, IDynamoDBContext context, ILogger<PaymentRefundRepository> logger)
+        public PaymentRefundRepository(IMapper mapper, IDynamoDBContext context, IAmazonDynamoDB dynamodb, ILogger<PaymentRefundRepository> logger)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _mapper = mapper ?? throw new System.ArgumentNullException(nameof(mapper));

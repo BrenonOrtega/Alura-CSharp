@@ -1,0 +1,39 @@
+version: "3.9"
+
+networks:
+  dynamo-network:
+
+services:
+  dynamodb:
+    image: amazon/dynamodb-local
+    hostname: dynamodb-local
+    container_name: dynamodb-local
+    command: "-jar DynamoDBLocal.jar -sharedDb -inMemory"
+    ports:
+      - "8000:8000"
+    environment:
+      AWS_ACCESS_KEY_ID: any-dummy-aws-access-key-id
+      AWS_SECRET_ACCESS_KEY: any-dummy-aws-secret-access-key
+      AWS_SECRET_SESSION_TOKEN: any-dummy-token
+      AWS_REGION: "us-east-1"
+    networks:
+      - dynamo-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 1000M 
+
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin
+    ports:
+      - "8001:8001"
+    environment:
+      DYNAMO_ENDPOINT: "http://dynamodb-local:8000"
+      AWS_REGION: "us-east-1"
+      AWS_ACCESS_KEY_ID: any-dummy-aws-access-key-id
+      AWS_SECRET_ACCESS_KEY: any-dummy-aws-secret-access-key
+    networks:
+      - dynamo-network
+    depends_on:
+      - dynamodb
