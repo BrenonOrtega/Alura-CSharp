@@ -9,30 +9,29 @@ namespace GloboTicket.Data.Repositories
 {
     public class TicketAsyncRepository : ITicketAsyncRepository
     {
-        public Task DeleteAsync(Event entity) => throw new NotImplementedException();
+        public Task DeleteAsync(Ticket entity) => throw new NotImplementedException();
 
-        public Task<IEnumerable<Event>> GetallAsync() => Task.FromResult(_events.Select(x => x.Value).AsEnumerable());
+        public Task<IEnumerable<Ticket>> GetallAsync() => Task.FromResult(_tickets.Select(x => x.Value).AsEnumerable());
 
-
-        public Task<Event> GetByIdAsync<TKey>(TKey id)
+        public Task<Ticket> GetByIdAsync<TKey>(TKey id)
         {
-            _events.TryGetValue(id.ToString(), out var  value);
+            _tickets.TryGetValue(id.ToString(), out var  value);
             return Task.FromResult(value);
         }
 
-        public Task SaveAsync(Event entity) => Task.FromResult(_events.TryAdd(entity.Id, entity));
+        public Task SaveAsync(Ticket entity) => Task.FromResult(_tickets.TryAdd(entity.Id, entity));
 
-        public Task UpdateAsync(Event entity) => Task.FromResult(_events[entity.Id] = entity);
-        private static IDictionary<string, Event> _events = new Dictionary<string, Event>()
+        public Task UpdateAsync(Ticket entity) => Task.FromResult(_tickets[entity.Id] = entity);
+        private static IDictionary<string, Ticket> _tickets = new Dictionary<string, Ticket>()
         {
-            { "1", new Event() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "1", Creator="Metallica", Name = "Thrash Garage Tour Sp" }},
-            { "2", new Event() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "2", Creator="Metallica", Name = "Thrash Garage Tour Sp" }},
-            { "3", new Event() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "3", Creator="Metallica", Name = "Thrash Garage Tour Sp" }},
-            { "4", new Event() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "4", Creator="Metallica", Name = "Thrash Garage Tour Sp" }},
-            { "5", new Event() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "5", Creator="Metallica", Name = "Thrash Garage Tour Sp" }},
-            { "6", new Event() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "6", Creator="Metallica", Name = "Thrash Garage Tour Sp" }},
-            { "7", new Event() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "7", Creator="Metallica", Name = "Thrash Garage Tour Sp" }},
-            { "8", new Event() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "8", Creator="Metallica", Name = "Thrash Garage Tour Sp" }},
+            { "1", new Ticket() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "1", OwnerId="1000", EventId = Guid.NewGuid() }},
+            { "2", new Ticket() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "2", OwnerId="2000", EventId = Guid.NewGuid() }},
+            { "3", new Ticket() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "3", OwnerId="3000", EventId = Guid.NewGuid() }},
+            { "4", new Ticket() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "4", OwnerId="4000", EventId = Guid.NewGuid() }},
+            { "5", new Ticket() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "5", OwnerId="5000", EventId = Guid.NewGuid() }},
+            { "6", new Ticket() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "6", OwnerId="6000", EventId = Guid.NewGuid() }},
+            { "7", new Ticket() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "7", OwnerId="7000", EventId = Guid.NewGuid() }},
+            { "8", new Ticket() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "8", OwnerId="8000", EventId = Guid.NewGuid() }},
         };
     }
 }

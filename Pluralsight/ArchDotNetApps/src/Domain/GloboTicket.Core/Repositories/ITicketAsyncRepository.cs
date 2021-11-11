@@ -3,7 +3,7 @@ using GloboTicket.Core.Models;
 
 namespace GloboTicket.Core.Repositories
 {
-    public interface ITicketAsyncRepository : IAsyncRepository<Event>
+    public interface ITicketAsyncRepository : IAsyncRepository<Ticket>
     {
         
     }
