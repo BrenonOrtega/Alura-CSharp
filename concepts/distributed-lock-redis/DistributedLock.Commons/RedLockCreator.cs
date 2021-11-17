@@ -9,11 +9,11 @@ using RedLockNet.SERedis.Configuration;
 
 namespace DistributedLock.Commons
 {
-    public static class RedLockConfig
+    public static class RedLockCreator
     {
         private static string RedisConnectionString = "localhost,port: 6379";
         private static CancellationTokenSource _cts = new CancellationTokenSource();
-        public const string myLockedResource = "my-locked-resource";
+        public const string MyLockedResource = "my-locked-resource";
         private static TimeSpan ExpiringTime = TimeSpan.FromSeconds(5);
 
         private static List<RedLockEndPoint> _redlockEndpoints = new List<RedLockEndPoint>()
@@ -30,7 +30,7 @@ namespace DistributedLock.Commons
         {
             var redLockFactory = GetRedLockFactory();
             
-            return redLockFactory.CreateLockAsync(myLockedResource, ExpiringTime);
+            return redLockFactory.CreateLockAsync(MyLockedResource, ExpiringTime);
         }
     }
 }

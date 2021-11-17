@@ -19,7 +19,7 @@ namespace ConsumerOne
         public Worker(ILogger<Worker> logger)
         {
             _logger = logger;
-            _redLock = RedLockConfig.GetRedLockFactory().CreateLock(RedLockConfig.myLockedResource, TimeSpan.FromSeconds(3));
+            _redLock = RedLockCreator.GetRedLockFactory().CreateLock(RedLockCreator.MyLockedResource, TimeSpan.FromSeconds(3));
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

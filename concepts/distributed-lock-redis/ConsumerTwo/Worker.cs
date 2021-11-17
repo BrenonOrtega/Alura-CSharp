@@ -25,7 +25,7 @@ namespace ConsumerTwo
         {
             do
             {
-                await using (_redLock = await RedLockConfig.GetRedLockAsync())
+                await using (_redLock = await RedLockCreator.GetRedLockAsync())
                 {
                     await Task.Delay(3000, stoppingToken);
                     _logger.LogInformation("Worker {consumer} running at: {time}", nameof(ConsumerTwo), DateTimeOffset.Now);

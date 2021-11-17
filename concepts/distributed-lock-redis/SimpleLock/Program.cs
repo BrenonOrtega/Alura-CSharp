@@ -7,8 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SimpleLock.Configuration;
-using StackExchange.Redis;
-
+using SimpleLock.Processors;
+using Multiplexer = StackExchange.Redis.ConnectionMultiplexer;
 namespace SimpleLock
 {
     class Program
@@ -36,11 +36,20 @@ namespace SimpleLock
                 await Task.Delay(300);
             } */
 
-            Host.CreateDefaultBuilder(args)
+            await Host.CreateDefaultBuilder(args)
                 .ConfigureServices((context, services) =>
                 {
                     services.Configure<RedLockConfiguration>(context.Configuration.GetSection(nameof(RedLockConfiguration)));
-                });
+                    services.AddSingleton(_ => RedLockCreator.GetRedLockFactory());
+                    services.AddSingleton(_ => Multiplexer.Connect(context.Configuration.GetConnectionString(nameof(StackExchange.Redis))).GetDatabase());
+                    services.AddDistributedRedisCache(x => x.Configuration = context.Configuration.GetConnectionString(nameof(StackExchange.Redis))); 
+
+                    services.AddScoped<IResourceProcessor, DatabaseResourceProcessor>();
+                    services.Decorate<IResourceProcessor, RedLockResourceProcessor>();
+
+                    services.AddHostedService<ResourceWorker>();
+                })
+                .Build().RunAsync();
         }
 
         internal record Resource(string Name, string Type, DateTime UpdatedAt, string UpdatedBy);

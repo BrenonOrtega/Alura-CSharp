@@ -6,4 +6,18 @@
     <ItemGroup>
         <ProjectReference Include="..\DistributedLock.Commons\DistributedLock.Commons.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
+      <PackageReference Include="Scrutor" Version="3.3.0" />
+      <PackageReference Include="StackExchange.Redis" Version="2.2.88" />
+    </ItemGroup>
+
+    <Target Name="ChangeAliasesOfStrongNameAssemblies" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
+        <ItemGroup>
+          <ReferencePath Condition="'%(FileName)' == 'StackExchange.Redis.StrongName'">
+            <Aliases>signed</Aliases>
+          </ReferencePath>
+        </ItemGroup>
+      </Target>
 </Project>

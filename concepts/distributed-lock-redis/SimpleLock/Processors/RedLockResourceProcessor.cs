@@ -1,31 +1,39 @@
 using System;
 using System.Threading.Tasks;
+using DistributedLock.Commons;
 using Microsoft.Extensions.Logging;
 using RedLockNet;
+using RedLockNet.SERedis;
+using SimpleLock.Configuration;
 
 namespace SimpleLock.Processors
 {
-    internal class RedLockResourceProcessor : IResourceProcessor, IAsyncDisposable
+    internal class RedLockResourceProcessor : IResourceProcessor
     {
         private readonly ILogger<RedLockResourceProcessor> logger;
-        private readonly IRedLock redlock;
+        private readonly RedLockFactory redLockFactory;
+        private readonly RedLockConfiguration redLockConfig;
         private readonly IResourceProcessor next;
 
-        public RedLockResourceProcessor(ILogger<RedLockResourceProcessor> logger, IRedLock redlock, IResourceProcessor next, IRedLockConfig redLockConfig)
+        public RedLockResourceProcessor(ILogger<RedLockResourceProcessor> logger, RedLockFactory redLockFactory, IResourceProcessor next, RedLockConfiguration redLockConfig)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.redlock = redlock ?? throw new ArgumentNullException(nameof(redlock));
+            this.redLockFactory = redLockFactory ?? throw new ArgumentNullException(nameof(redLockFactory));
             this.next = next ?? throw new ArgumentNullException(nameof(next));
+            this.redLockConfig = redLockConfig;
         }
 
-        public ValueTask DisposeAsync() => redlock.DisposeAsync();
-
-        public Task<Program.Resource> ProcessAsync(string resourceName)
+        public async Task<Program.Resource> ProcessAsync(string resourceName)
         {
-            while(redlock.IsAcquired is false)
+            await using var redlock = await redLockFactory.CreateLockAsync(resourceName, redLockConfig.ExpiryTime, redLockConfig.AcquireWaitTime, redLockConfig.RetryTime);
+            
+            if(redlock.IsAcquired)
             {
-                await Task.Delay()
+                logger.LogInformation("RedLock Acquired, next processor is being called");
+                return await next.ProcessAsync(resourceName);
             }
+
+            throw new TimeoutException("Acquiring Lock Maximum retries exceeded");
         }
     }
 }
