@@ -4,7 +4,7 @@ using static SimpleLock.Program;
 
 namespace SimpleLock.Processors
 {
-    internal interface IResourceProcessor
+    public interface IResourceProcessor
     {
         Task<Resource> ProcessAsync(string resourceName);
     }

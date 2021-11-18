@@ -2,28 +2,29 @@ using System;
 using System.Threading.Tasks;
 using DistributedLock.Commons;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using RedLockNet;
 using RedLockNet.SERedis;
 using SimpleLock.Configuration;
 
 namespace SimpleLock.Processors
 {
-    internal class RedLockResourceProcessor : IResourceProcessor
+    public class RedLockResourceProcessor : IResourceProcessor
     {
         private readonly ILogger<RedLockResourceProcessor> logger;
         private readonly RedLockFactory redLockFactory;
         private readonly RedLockConfiguration redLockConfig;
         private readonly IResourceProcessor next;
 
-        public RedLockResourceProcessor(ILogger<RedLockResourceProcessor> logger, RedLockFactory redLockFactory, IResourceProcessor next, RedLockConfiguration redLockConfig)
+        public RedLockResourceProcessor(ILogger<RedLockResourceProcessor> logger, RedLockFactory redLockFactory, IResourceProcessor next, IOptions<RedLockConfiguration> redLockConfig)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.redLockFactory = redLockFactory ?? throw new ArgumentNullException(nameof(redLockFactory));
             this.next = next ?? throw new ArgumentNullException(nameof(next));
-            this.redLockConfig = redLockConfig;
+            this.redLockConfig = redLockConfig.Value ?? throw new ArgumentNullException(nameof(redLockConfig));
         }
 
-        public async Task<Program.Resource> ProcessAsync(string resourceName)
+        public async Task<Resource> ProcessAsync(string resourceName)
         {
             await using var redlock = await redLockFactory.CreateLockAsync(resourceName, redLockConfig.ExpiryTime, redLockConfig.AcquireWaitTime, redLockConfig.RetryTime);
             
