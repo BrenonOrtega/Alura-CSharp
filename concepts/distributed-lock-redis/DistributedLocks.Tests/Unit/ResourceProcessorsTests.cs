@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using SimpleLock.Extensions;
+using FluentAssertions;
 
 namespace DistributedLocks.Tests.Unit
 {
@@ -32,7 +33,7 @@ namespace DistributedLocks.Tests.Unit
             services.AddLogging();
             services.AddRedisCache(config);
             services.AddTransient<IResourceProcessor, DatabaseResourceProcessor>();
-            //services.Decorate<IResourceProcessor, SaveResourceProcessor>();
+            services.Decorate<IResourceProcessor, SaveResourceProcessor>();
             services.Decorate<IResourceProcessor, RedLockResourceProcessor>();
             var provider = services.BuildServiceProvider();
 
@@ -42,6 +43,7 @@ namespace DistributedLocks.Tests.Unit
             var resource = await processor.ProcessAsync(RedLockCreator.MyLockedResource);
 
             //Then
+            resource.Name.Should().NotBeNull();
             
         }
     }
