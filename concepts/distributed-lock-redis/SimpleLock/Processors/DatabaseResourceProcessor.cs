@@ -2,17 +2,17 @@ using System;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
+using StackExchange.Redis;
 
 namespace SimpleLock.Processors
 {
     public class DatabaseResourceProcessor : IResourceProcessor
     {
         private readonly ILogger<DatabaseResourceProcessor> _logger;
-        private readonly IDistributedCache _cache;
+        private readonly IDatabase _cache;
 
-        public DatabaseResourceProcessor(ILogger<DatabaseResourceProcessor> logger, IRedisCache cache) =>
+        public DatabaseResourceProcessor(ILogger<DatabaseResourceProcessor> logger, IDatabase cache) =>
             (_cache, _logger) = (cache, logger);
 
         public async Task<Resource> ProcessAsync(string resourceName)
@@ -20,7 +20,7 @@ namespace SimpleLock.Processors
             try
             {
 
-                var data = await _cache.GetStringAsync(resourceName);
+                var data = await _cache.StringGetAsync(resourceName);
                 //var @string = Encoding.UTF8.GetString(data);
                 
                 return JsonSerializer.Deserialize<Resource>(data);

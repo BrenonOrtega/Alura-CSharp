@@ -8,8 +8,8 @@ namespace SimpleLock.Configuration
         private int retryTime;
         private int expiryTime;
 
-        public TimeSpan AcquireWaitTime { get => TimeSpan.FromSeconds(acquireWaitTime); set => acquireWaitTime = (int)value.TotalMinutes; }
-        public TimeSpan RetryTime {get => TimeSpan.FromSeconds(retryTime); set => retryTime = (int)value.TotalMinutes; }
-        public TimeSpan ExpiryTime { get => TimeSpan.FromSeconds(expiryTime); set => expiryTime = (int)value.TotalMinutes; }
+        public TimeSpan AcquireWaitTime { get => TimeSpan.FromSeconds(acquireWaitTime); set => acquireWaitTime = value.Seconds; }
+        public TimeSpan RetryTime {get => TimeSpan.FromSeconds(retryTime); set => retryTime = (int)value.Seconds; }
+        public TimeSpan ExpiryTime { get => TimeSpan.FromSeconds(expiryTime); set => expiryTime = (int)value.Seconds; }
     }
 }
