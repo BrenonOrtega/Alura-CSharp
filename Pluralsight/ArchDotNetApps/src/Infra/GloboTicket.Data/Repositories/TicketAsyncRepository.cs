@@ -9,8 +9,6 @@ namespace GloboTicket.Data.Repositories
 {
     public class TicketAsyncRepository : ITicketAsyncRepository
     {
-        public Task DeleteAsync(Ticket entity) => throw new NotImplementedException();
-
         public Task<IEnumerable<Ticket>> GetallAsync() => Task.FromResult(_tickets.Select(x => x.Value).AsEnumerable());
 
         public Task<Ticket> GetByIdAsync<TKey>(TKey id)
@@ -19,9 +17,12 @@ namespace GloboTicket.Data.Repositories
             return Task.FromResult(value);
         }
 
+        public Task DeleteAsync(Ticket entity) => Task.Run(() => _tickets.Remove(entity.Id));
+
         public Task SaveAsync(Ticket entity) => Task.FromResult(_tickets.TryAdd(entity.Id, entity));
 
         public Task UpdateAsync(Ticket entity) => Task.FromResult(_tickets[entity.Id] = entity);
+        
         private static IDictionary<string, Ticket> _tickets = new Dictionary<string, Ticket>()
         {
             { "1", new Ticket() { CreatedAt=DateTime.Now, UpdatedAt = DateTime.Now, Id = "1", OwnerId="1000", EventId = Guid.NewGuid() }},
