@@ -15,13 +15,12 @@ namespace SimpleLock.Processors
         private readonly ISerializer _serializer;
 
         public DatabaseResourceProcessor(ILogger<DatabaseResourceProcessor> logger, IDistributedCache cache, ISerializer serializer) =>
-            (_cache, _logger, _serializer) = (cache, logger, serializer);
+            (_cache, _logger, _serializer) = (cache?? throw new ArgumentNullException(nameof(cache)), logger, serializer);
 
         public async Task<Resource> ProcessAsync(string resourceName)
         {
             try
             {
-
                 var data = await _cache.GetAsync(resourceName);
                 
                 return _serializer.Deserialize<Resource>(@data);
