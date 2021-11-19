@@ -10,7 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using GloboTicket.Features.Extensions;
 using Microsoft.OpenApi.Models;
+using GloboTicket.Data.Extensions;
 
 namespace GloboTicket.Api
 {
@@ -28,6 +30,8 @@ namespace GloboTicket.Api
         {
 
             services.AddControllers();
+            services.AddFeatures();
+            services.AddRepositories();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GloboTicket.Api", Version = "v1" });

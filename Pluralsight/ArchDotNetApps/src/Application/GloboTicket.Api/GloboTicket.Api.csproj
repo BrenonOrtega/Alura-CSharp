@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Infra\GloboTicket.Messaging\GloboTicket.Messaging.csproj" />
+    <ProjectReference Include="..\..\Infra\GloboTicket.Data\GloboTicket.Data.csproj" />
     <ProjectReference Include="..\GloboTicket.Features\GloboTicket.Features.csproj" />
   </ItemGroup>
 
