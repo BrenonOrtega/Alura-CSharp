@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GloboTicket.Contracts.Commands;
+using GloboTicket.Contracts.Commands.Tickets;
 using MediatR; 
 
 namespace GloboTicket.Messaging.Commands
