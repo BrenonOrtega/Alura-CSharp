@@ -1,32 +1,29 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using GloboTicket.Contracts.Commands;
+using GloboTicket.Contracts.Commands.Tickets;
 using GloboTicket.Core.Models;
 using GloboTicket.Core.Repositories;
-using GloboTicket.Features.Commands;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace GloboTicket.Features.Tickets.Commands.BuyTicket
+namespace GloboTicket.Features.Tickets.Commands.BuyTickets
 {
-    public class BuyTicketCommandHandler : IRequestHandler<BuyTicketCommand>, IBuyTicketCommandHandler
+    internal class BuyTicketHandler : IRequestHandler<BuyTicket>, IBuyTicketHandler
     {
         private readonly IMapper mapper;
-        private readonly ILogger<BuyTicketCommandHandler> logger;
+        private readonly ILogger<BuyTicketHandler> logger;
         private readonly ITicketAsyncRepository repo;
 
-        public BuyTicketCommandHandler(IMapper mapper, ILogger<BuyTicketCommandHandler> logger, ITicketAsyncRepository repo)
+        public BuyTicketHandler(IMapper mapper, ILogger<BuyTicketHandler> logger, ITicketAsyncRepository repo)
         {
             this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.repo = repo ?? throw new ArgumentNullException(nameof(repo));
         }
-        public async Task<Unit> Handle(BuyTicketCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(BuyTicket request, CancellationToken cancellationToken)
         {
             await HandleAsync(request, cancellationToken);
             return Unit.Value;

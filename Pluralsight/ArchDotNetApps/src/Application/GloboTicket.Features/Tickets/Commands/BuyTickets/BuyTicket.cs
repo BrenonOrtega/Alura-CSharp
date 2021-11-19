@@ -1,9 +1,9 @@
-using GloboTicket.Contracts.Commands;
+using GloboTicket.Contracts.Commands.Tickets;
 using MediatR;
 
-namespace GloboTicket.Features.Commands
+namespace GloboTicket.Features.Tickets.Commands.BuyTickets
 {
-    public class BuyTicketCommand : IRequest, IBuyTicketCommand
+    internal class BuyTicket : IRequest, IBuyTicketCommand
     {
         public string BuyerName { get; set; }
         public string BuyerId { get; set; }
