@@ -21,9 +21,9 @@ namespace SimpleLock.Processors
         {
             try
             {
-                var data = await _cache.GetAsync(resourceName);
+                var resourceData = await _cache.GetAsync(resourceName);
                 
-                return _serializer.Deserialize<Resource>(@data);
+                return _serializer.Deserialize<Resource>(resourceData);
             
             } catch(Exception e)
             {

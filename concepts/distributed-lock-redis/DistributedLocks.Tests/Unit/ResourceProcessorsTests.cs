@@ -33,7 +33,7 @@ namespace DistributedLocks.Tests.Unit
             services.AddLogging();
             services.AddRedisCache(config);
             services.AddTransient<IResourceProcessor, DatabaseResourceProcessor>();
-            services.Decorate<IResourceProcessor, SaveResourceProcessor>();
+            //services.Decorate<IResourceProcessor, SaveResourceProcessor>();
             services.Decorate<IResourceProcessor, RedLockResourceProcessor>();
             var provider = services.BuildServiceProvider();
 
