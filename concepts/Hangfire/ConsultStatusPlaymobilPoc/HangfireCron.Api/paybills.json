@@ -1,0 +1,23 @@
+[
+  {
+    "id": "paybill1",
+    "amount": 10,
+    "paid": false,
+    "payer": "teddy do payments",
+    "createdAt": "2022-01-04T15:30:00.000Z"
+  },
+  {
+    "id": "paybill2",
+    "amount": 20,
+    "paid": false,
+    "payer": "teddy do payments 2",
+    "createdAt": "2022-01-04T15:40:00.000Z"
+  },
+  {
+    "id": "paybill3",
+    "amount": 30,
+    "paid": true,
+    "payer": "teddy do payments 3",
+    "createdAt": "2022-01-04T15:50:00.000Z"
+  }
+]
