@@ -8,7 +8,7 @@ using HangfireCron.Shared.Models;
 
 namespace HangfireCron.Api.Services.Paybill
 {
-    public class PaybillService : IPaybillService
+    class PaybillService : IPaybillService
     {
         private readonly PaybillConsultHandler _handler;
         private readonly IAsyncRepository<PaybillStatusConsult> _repo;

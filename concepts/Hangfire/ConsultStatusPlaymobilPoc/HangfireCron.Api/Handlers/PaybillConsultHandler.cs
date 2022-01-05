@@ -9,6 +9,7 @@ using HangfireCron.Shared;
 using Hangfire;
 using System.Text.Json;
 using System.Text;
+using HangfireCron.Api.Processors.UndoReserveAmount;
 
 namespace HangfireCron.Api.Handlers
 {
@@ -17,13 +18,18 @@ namespace HangfireCron.Api.Handlers
         private readonly IDistributedCache _cache;
         private readonly IAsyncRepository<PaybillStatusConsult> _repo;
         private readonly ILogger<PaybillConsultHandler> _logger;
+        private readonly IUndoReserveAmountProcessor _undoReserveAmount;
         private readonly CelcoinConsultOptions _options = new CelcoinConsultOptions();
 
-        public PaybillConsultHandler(IDistributedCache cache, IAsyncRepository<PaybillStatusConsult> repo, ILogger<PaybillConsultHandler> logger)
+        public PaybillConsultHandler(IDistributedCache cache, 
+            IAsyncRepository<PaybillStatusConsult> repo, 
+            ILogger<PaybillConsultHandler> logger,
+            IUndoReserveAmountProcessor undoReserveAmount)
         {
             _cache = cache ?? throw new ArgumentNullException(nameof(cache));
             _repo = repo ?? throw new ArgumentNullException(nameof(repo));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _undoReserveAmount = undoReserveAmount ?? throw new ArgumentNullException(nameof(undoReserveAmount));
         }
 
         public async Task<PaybillStatusConsult> HandleAsync(string id)
@@ -73,12 +79,8 @@ namespace HangfireCron.Api.Handlers
 
         private async Task UndoReserveAmountAsync(PaybillStatusConsult bill)
         {
-            _logger.LogInformation("Undoing Amount Reserve for Paybill: {id}", bill?.Id);
-
-            // OTher logic to undo reserve amount.
-            // await _undoAmountReserveService.UndoReserve(bill);
-
-            await Task.CompletedTask;
+            // Other logic to undo reserve amount.
+            await _undoReserveAmount.ProcessAsync(bill);
         }
     }
 }

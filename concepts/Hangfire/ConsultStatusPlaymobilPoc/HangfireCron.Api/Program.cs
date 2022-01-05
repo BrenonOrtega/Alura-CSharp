@@ -1,4 +1,5 @@
 using HangfireCron.Api.Handlers;
+using HangfireCron.Api.Processors.UndoReserveAmount;
 using HangfireCron.Api.Services.Paybill;
 using HangfireCron.Infra.Data.Repositories;
 using HangfireCron.Infra.Extensions;
@@ -14,8 +15,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IUndoReserveAmountProcessor, UndoReserveAmountProcessor>();
+
 builder.Services.AddScoped<IPaybillService, PaybillService>();
-builder.Services.AddScoped(typeof(IAsyncRepository<PaybillStatusConsult>),typeof(PaybillStatusConsultRepository));
+builder.Services.AddScoped(typeof(IAsyncRepository<PaybillStatusConsult>), typeof(PaybillStatusConsultRepository));
 builder.Services.AddScoped<PaybillConsultHandler>();
 
 builder.Services.AddRecurrentHangfireJob(configuration);
