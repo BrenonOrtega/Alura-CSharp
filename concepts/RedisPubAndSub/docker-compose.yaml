@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  redis:
+    image: 'bitnami/redis:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - "6379:6379"
+    networks:
+      - job-queue-hangfire
+    
+networks:
+  job-queue-hangfire:
+    driver: bridge
