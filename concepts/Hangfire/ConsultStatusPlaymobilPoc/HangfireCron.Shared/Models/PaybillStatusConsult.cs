@@ -23,6 +23,8 @@ namespace HangfireCron.Shared.Models
             CreatedAt = DateTime.UnixEpoch;
         }
 
+        public bool StillInConsultTime(TimeSpan consultTime) => consultTime <= ElapsedTime;
+
         public static readonly PaybillStatusConsult Empty = new PaybillStatusConsult();
     }
 }

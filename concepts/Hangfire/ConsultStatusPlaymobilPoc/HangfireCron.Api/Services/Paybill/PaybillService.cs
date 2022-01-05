@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HangfireCron.Api.Handlers;
 using HangfireCron.Shared;
 using HangfireCron.Shared.Models;
 
@@ -25,7 +26,7 @@ namespace HangfireCron.Api.Services.Paybill
 
         public Task<PaybillStatusConsult> GetPaybill(string id)
         {
-            return _handler.Handle(id);
+            return _handler.HandleAsync(id);
         }
     }
 }
