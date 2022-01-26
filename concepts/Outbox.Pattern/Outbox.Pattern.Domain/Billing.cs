@@ -9,6 +9,7 @@ namespace Outbox.Pattern.Domain
 
         public Billing(Guid id, Customer customer, double amount, double discount)
         {
+            Id = id;
             Amount = amount;
             Discount = discount;
         }

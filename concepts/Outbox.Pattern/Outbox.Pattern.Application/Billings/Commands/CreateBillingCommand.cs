@@ -1,6 +1,7 @@
 using System;
+using Outbox.Pattern.Domain;
 
-namespace Outbox.Pattern.Domain.Commands
+namespace Outbox.Pattern.Application.Billings.Commands
 {
     public class CreateBillingCommand
     {
