@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using MediatR;
 using Xunit;
+using GloboTicket.Api.Models.Requests;
 
 namespace GloboTicket.UnitTests.Application.Api.Controllers
 {
@@ -22,8 +23,12 @@ namespace GloboTicket.UnitTests.Application.Api.Controllers
             var mapperMock = new Mock<IMapper>();
 
             var controller = new TicketsController(loggerMock.Object, mediatorMock.Object, mapperMock.Object);
+            var request = new BuyTicketRequest()
+            {
+                
+            };
         //When
-        
+
         //Then
         }
     }

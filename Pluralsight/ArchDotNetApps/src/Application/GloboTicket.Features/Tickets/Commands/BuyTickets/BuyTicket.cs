@@ -3,7 +3,7 @@ using MediatR;
 
 namespace GloboTicket.Features.Tickets.Commands.BuyTickets
 {
-    internal class BuyTicket : IRequest, IBuyTicketCommand
+    public class BuyTicket : IRequest, IBuyTicketCommand
     {
         public string BuyerName { get; set; }
         public string BuyerId { get; set; }

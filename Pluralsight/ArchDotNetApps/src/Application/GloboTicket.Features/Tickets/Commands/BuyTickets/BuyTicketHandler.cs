@@ -29,12 +29,12 @@ namespace GloboTicket.Features.Tickets.Commands.BuyTickets
             return Unit.Value;
         }
 
-        public async Task HandleAsync(IBuyTicketCommand command, CancellationToken token = default)
+        public Task HandleAsync(IBuyTicketCommand command, CancellationToken token = default)
         {
             var ticket = mapper.Map<Ticket>(command);
             logger.LogInformation("Creating Ticket {ticketData}.", JsonSerializer.Serialize(ticket));
 
-            await repo.SaveAsync(ticket);
+            return repo.SaveAsync(ticket);
         }
     }
 }
