@@ -27,14 +27,14 @@ namespace SimpleLock.Processors
         public async Task<Resource> ProcessAsync(string resourceName)
         {
             await using var redlock = await redLockFactory.CreateLockAsync(resourceName, redLockConfig.ExpiryTime, redLockConfig.AcquireWaitTime, redLockConfig.RetryTime);
-            
-            if(redlock.IsAcquired)
+
+            if (redlock.IsAcquired)
             {
                 logger.LogInformation("RedLock Acquired, next processor is being called");
                 return await next.ProcessAsync(resourceName);
             }
 
-            throw new TimeoutException("Acquiring Lock Maximum retries exceeded");
+            return default;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using DistributedLock.Commons;
@@ -5,9 +6,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SimpleLock.Processors;
 
-namespace SimpleLock
+namespace SimpleLock.Workers
 {
-    internal class ResourceWorker : BackgroundService
+    internal abstract class ResourceWorker : BackgroundService
     {
         private readonly ILogger<ResourceWorker> logger;
         private readonly IResourceProcessor processor;
@@ -25,6 +26,8 @@ namespace SimpleLock
             do
             {
                 logger.LogInformation("Starting to process requested resource {resourceName}", resource);
+                logger.LogInformation("{worker} acquiredLock and is processing the request at {datetime}", GetType().Name, DateTime.Now);
+
                 var requestedResource = await processor.ProcessAsync(resource);
                 logger.LogInformation("Requested Resouce {requestedResouce}", requestedResource);
 

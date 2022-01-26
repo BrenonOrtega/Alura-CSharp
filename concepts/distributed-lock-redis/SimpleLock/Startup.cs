@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using SimpleLock.Extensions;
 using SimpleLock.Processors;
 using SimpleLock.Services;
+using SimpleLock.Workers;
 
 namespace SimpleLock
 {
@@ -32,6 +33,9 @@ namespace SimpleLock
             services.AddTransient<IResourceService<Resource>, SaveResourceService>();
 
             services.AddRedisCache(Configuration);
+
+            services.AddHostedService<FirstResourceWorker>();
+            services.AddHostedService<SecondResourceWorker>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
