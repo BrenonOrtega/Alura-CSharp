@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Visitor
 {
-    public interface IVisitor
+    public interface IVisitor<TVisitable> where TVisitable : IVisitable
     {
-        void Visit(IVisitable obj);
+        void Visit(TVisitable visitable);
     }
 }
