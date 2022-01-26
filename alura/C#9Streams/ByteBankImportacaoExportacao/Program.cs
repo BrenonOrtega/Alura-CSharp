@@ -23,17 +23,7 @@ namespace ByteBankImportacaoExportacao
                 
         }
 
-        private static async Task CreatingAccountsFromStream(string[] args)
-        {
-            using var fs = new FileStream(_fileAddress, FileMode.Open);
-            using var reader = new StreamReader(fs);
-
-            do { 
-                var fileLine = await reader.ReadLineAsync();
-                var account = fileLine.ToContaCorrente(' ');
-                System.Console.WriteLine(account);
-            } while (reader.EndOfStream is false);
-        }
+       
         private static bool CheckExercise(string[] args, string exerciseName = "first exercise") => exerciseName.ToLower().Equals(args?[0]);
     }
 

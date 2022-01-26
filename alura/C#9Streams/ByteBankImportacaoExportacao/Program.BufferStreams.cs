@@ -38,6 +38,19 @@ namespace ByteBankImportacaoExportacao
             } while (streamReader.EndOfStream is false);
         }
 
+        private static async Task CreatingAccountsFromStream(string[] args)
+        {
+            using var fs = new FileStream(_fileAddress, FileMode.Open);
+            using var reader = new StreamReader(fs);
+
+            do
+            {
+                var fileLine = await reader.ReadLineAsync();
+                var account = fileLine.ToContaCorrente(' ');
+                System.Console.WriteLine(account);
+            } while (reader.EndOfStream is false);
+        }
+
         static void Process(byte[] buffer, int readBytes)
         {
             var utf8 = new UTF8Encoding();
