@@ -6,14 +6,16 @@ using System.Runtime.CompilerServices;
 using Outbox.Pattern.Application.Billings.Commands;
 
 [assembly: InternalsVisibleTo("Outbox.Pattern.Tests")]
-namespace Outbox.Pattern.Application.Billings
+namespace Outbox.Pattern.Application.Billings.Services
 {
     internal class BillingService : IBillingService
     {
+        private readonly IRepository<Billing> _repository;
         private readonly IPublisher<CreateBillingCommand> _publisher;
 
-        public BillingService(IPublisher<CreateBillingCommand> publisher)
+        public BillingService(IRepository<Billing> repository, IPublisher<CreateBillingCommand> publisher)
         {
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
             _publisher = publisher ?? throw new ArgumentNullException(nameof(publisher));
         }
 
@@ -31,6 +33,11 @@ namespace Outbox.Pattern.Application.Billings
                 return Response<Billing>.Success(billing);
 
             return Response<Billing>.Fail(result.Reason);
+        }
+
+        public Task<Billing> GetBillAsync(Guid id)
+        {
+            return _repository.GetByIdAsync(id);
         }
     }
 }

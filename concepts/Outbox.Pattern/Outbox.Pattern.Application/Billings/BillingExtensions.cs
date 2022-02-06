@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Outbox.Pattern.Application.Billings.Services;
 
 namespace Outbox.Pattern.Application.Billings
 {
