@@ -1,7 +1,7 @@
 using Xunit;
 using Outbox.Pattern.Domain;
 using FluentAssertions;
-
+using System;
 namespace Outbox.Pattern.Tests.DomainTests
 {
     public class CustomerTests
